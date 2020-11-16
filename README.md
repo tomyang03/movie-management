@@ -1,5 +1,4 @@
-# movie-management-system
-## PROG8050 Project - Movie Management System
+# PROG8050 Project - Movie Management System
 
 Contributors:\
 Dennis Nay\
