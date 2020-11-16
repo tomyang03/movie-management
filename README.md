@@ -1,4 +1,10 @@
 # movie-management-system
-PROG8050 Project
+PROG8050 Project - Movie Management System
 
-Test Change
+Contributors:
+Dennis Nay
+Ernesto Valle Villalobos
+Kang Yang
+Youngyun Namkung
+
+
