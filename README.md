@@ -5,5 +5,3 @@ Dennis Nay\
 Ernesto Valle Villalobos (Mex)\
 Kang Yang\
 Youngyun Namkung
-
-asdfasdfasdfasdf
