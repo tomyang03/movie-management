@@ -4,16 +4,62 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WPF_UI"
-        mc:Ignorable="d"
-        Title="Movie List" Height="450" Width="800">
-    <Grid Margin="10">
+        mc:Ignorable="d" FontSize="14" FontFamily="Segoe UI Light"
+        Background="#151314" Foreground="#ffffff" Opacity="0.95"
+        Title="Movie List" SizeToContent="Height" Width="800" d:DesignHeight="512.237">
+
+    <Window.Resources>
+        <!-- Movie List Mock Data -->
+        <XmlDataProvider x:Key="MockList" XPath="/MockObjects/*" >
+            <x:XData >
+                <MockObjects xmlns="">
+                    <MockObject 
+                            Title="The Last Black Man in San Francisco"
+                            Runtime="120 mins" 
+                            Director="Joe Talbot"
+                            Season="Fall 2020"
+                            Detail=""
+                     />
+                    <MockObject 
+                            Title="The Handmaiden"
+                            Runtime="145 mins" 
+                            Director="Park Chan-wook"
+                            Season="Fall 2020"
+                            Detail=""
+                     />
+                    <MockObject 
+                            Title="Roma"
+                            Runtime="135 mins" 
+                            Director="Alfonso Cuaron"
+                            Season="Fall 2020"
+                            Detail=""
+                     />
+                    <MockObject 
+                            Title="The Farewell"
+                            Runtime="100 mins" 
+                            Director="Lulu Wang"
+                            Season="Fall 2020"
+                            Detail=""
+                     />
+                    <MockObject 
+                            Title="Moonlight"
+                            Runtime="111 mins" 
+                            Director="Barry Jenkins"
+                            Season="Fall 2020"
+                            Detail=""
+                     />
+                </MockObjects>
+            </x:XData>
+        </XmlDataProvider>
+    </Window.Resources>
+    
+    <Grid Margin="10" DataContext="{Binding Source={StaticResource MockList}}">
         <Grid.Resources>
             <Style TargetType="Button">
                 <Setter Property="Margin" Value="10" />
                 <Setter Property="Padding" Value="20 10" />
                 <Setter Property="BorderThickness" Value="0" />
                 <Setter Property="FontSize" Value="14" />
-                <Setter Property="Background" Value="Tan" />
             </Style>
         </Grid.Resources>
         <Grid.ColumnDefinitions>
@@ -22,13 +68,21 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
             <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
             <RowDefinition Height="3*" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
-        <TextBlock Grid.Row="0" FontSize="28" FontWeight="Bold" TextAlignment="Center" VerticalAlignment="Center">Movie Management System</TextBlock>
+        <TextBlock Grid.Row="0" Grid.ColumnSpan="2" FontFamily="Segoe UI Semibold" FontSize="24" 
+                       Foreground="#e84a5f" TextAlignment="Center" VerticalAlignment="Center">Movie Management System</TextBlock>
+        <TextBlock Grid.Row="1" Grid.ColumnSpan="2" FontFamily="Segoe UI" FontSize="16" 
+                       TextAlignment="Center" VerticalAlignment="Center" Margin="0 0 0 15">
+                            Double-click a movie to view its details.</TextBlock>
 
-        <TextBox Grid.Row="1" Width="300" Height="50" HorizontalAlignment="Left" />
+        <StackPanel Grid.Row="2" Orientation="Horizontal">
+            <TextBox Width="300" Height="25" HorizontalAlignment="Left" />
+            <Button Content="Search" Height="25" Width="100" Padding="1" Background="Tan"/>
+        </StackPanel>
 
         <!-- *Need to ask: which is better for listing: ListBox or DataGrid -->
         <!--<ListBox Grid.Row="2" FontSize="14" Margin="5">
@@ -46,20 +100,28 @@
             </ListBox.ItemTemplate>
         </ListBox>-->
 
-        <DataGrid Grid.Row="2">
+        <DataGrid Name="movieListGrid" Grid.Row="3" Margin="0 0 0 50" AutoGenerateColumns="False" 
+                      IsReadOnly="True" LostFocus="movieListGrid_LostFocus" GotFocus="movieListGrid_GotFocus"
+                          ItemsSource="{Binding Mode=Default, XPath=/MockObjects/MockObject}" RowBackground="#fafafa"
+                              SelectedItem="{Binding Mode=TwoWay, XPath=/MockObjects/MockObject/Title}">
+            <DataGrid.ItemContainerStyle>
+                <Style TargetType="DataGridRow">
+                    <EventSetter Event="MouseDoubleClick" Handler="movieListRow_DoubleClick"/>
+                </Style>
+            </DataGrid.ItemContainerStyle>
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Title" />
-                <DataGridTextColumn Header="Runtime" />
-                <DataGridTextColumn Header="Director" />
-                <DataGridTextColumn Header="Season" />
-                <DataGridTextColumn Header="Detail" />
+                <DataGridTextColumn Header="Title" Binding="{Binding XPath=@Title}" ></DataGridTextColumn>
+                <DataGridTextColumn Header="Runtime" Binding="{Binding XPath=@Runtime}" ></DataGridTextColumn>
+                <DataGridTextColumn Header="Director" Binding="{Binding XPath=@Director}" ></DataGridTextColumn>
+                <DataGridTextColumn Header="Season" Binding="{Binding XPath=@Season}" ></DataGridTextColumn>
+                <DataGridTextColumn Header="Detail" Binding="{Binding XPath=@Detail}" ></DataGridTextColumn>
             </DataGrid.Columns>
         </DataGrid>
 
-        <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Center">
-            <Button Content="Add New Movie" />
-            <Button Content="Edit Movie" />
-            <Button Content="Delete Movie" />
+        <StackPanel Grid.Row="4" Orientation="Horizontal" HorizontalAlignment="Center">
+            <Button Content="Add New Movie" Height="30" Width="120" Padding="5" Background="tan" Click="newMovieBtn_Click"/>
+            <Button Name="editMovieButton" Content="Edit Movie" Height="30" Width="120" Padding="5" Click="editMovieBtn_Click"
+                        Background="tan" IsEnabled="{Binding ElementName=movieListGrid, Path=SelectedItems.Count}"/>
         </StackPanel>
     </Grid>
 </Window>

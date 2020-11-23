@@ -10,24 +10,19 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace WPF_UI
+namespace WPF_UI.Views
 {
     /// <summary>
-    /// Interaction logic for MovieDetail.xaml
+    /// Interaction logic for MovieDetailView.xaml
     /// </summary>
-    public partial class MovieDetail : Window
+    public partial class MovieDetailView : UserControl
     {
-        public MovieDetail()
+        public MovieDetailView()
         {
             InitializeComponent();
-            WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen;
-        }
-
-        private void closeMovieDetai_Btn(object sender, RoutedEventArgs e)
-        {
-            this.Close();
         }
     }
 }

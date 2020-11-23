@@ -22,6 +22,46 @@ namespace WPF_UI
         public MovieList()
         {
             InitializeComponent();
+            WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen;
+        }
+
+        private void newMovieBtn_Click(object sender, RoutedEventArgs e)
+        {
+            NewMovie objNewMovie = new NewMovie();
+            objNewMovie.ShowDialog();
+        }
+
+        private void editMovieBtn_Click(object sender, RoutedEventArgs e)
+        {
+            EditMovie objEditMovie = new EditMovie();
+            objEditMovie.ShowDialog();
+        }
+
+        private void movieListRow_DoubleClick(object sender, MouseEventArgs e)
+        {
+            MovieDetail objMovieDetail = new MovieDetail();
+            objMovieDetail.ShowDialog(); // view selected movie details from db
+        }
+
+        private void movieListGrid_LostFocus(object sender, RoutedEventArgs e)
+        {
+            if (editMovieButton.IsMouseOver)
+                editMovieButton.IsEnabled = true;
+            else
+                editMovieButton.IsEnabled = false;
+        }
+
+        private void movieListGrid_GotFocus(object sender, RoutedEventArgs e)
+        {
+            /* Find a way to print selected movie title to console output (to test).
+             * Eventually need to find a way to view and edit the details of the 
+             * selected movie */
+
+            DataGridRow objSelectedMovie = movieListGrid.SelectedItem as DataGridRow;
+            //string movieTitle = objSelectedMovie.ToString();
+
+            editMovieButton.IsEnabled = true;
+            //Console.WriteLine($"You clicked on the movie: {movieTitle}");
         }
     }
 }

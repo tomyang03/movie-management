@@ -4,8 +4,9 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WPF_UI"
-        mc:Ignorable="d"
-        Title="Movie Detail" Height="450" Width="800">
+        mc:Ignorable="d" FontFamily="Segoe UI Light"
+        Background="#151314" Foreground="#ffffff" Opacity="0.95"
+        Title="Movie Detail" SizeToContent="Height" Width="800" d:DesignHeight="507.631">
     <Grid Margin="10">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*" />
@@ -17,45 +18,50 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
-        <TextBlock Grid.Row="0" Grid.ColumnSpan="2" FontSize="30" FontWeight="Bold" TextAlignment="Center" VerticalAlignment="Center">{Movie Title}</TextBlock>
+        <TextBlock Grid.Row="0" Grid.ColumnSpan="2" FontFamily="Segoe UI Semibold" FontSize="24" 
+                    Margin="0 0 0 25" TextAlignment="Center" VerticalAlignment="Center">{Movie Title}</TextBlock>
 
-        <StackPanel Grid.Row="1" Grid.Column="0" >
+        <StackPanel Grid.Row="1" Grid.Column="0" Margin="20 10 0 0">
             <WrapPanel>
-                <Image Width="230" Height="200"/>
-            </WrapPanel>
-            <WrapPanel>
-                <Label Content="Season" />
-                <Label Content="\{Season}" />
-            </WrapPanel>
-
-            <WrapPanel>
-                <Label Content="Runtime" />
-                <Label Content="\{Runtime}" />
-            </WrapPanel>
-            <WrapPanel>
-                <Label Content="Premiere Date" />
-                <Label Content="\{Premiere Date}" />
+                <Image Name="moviePoster" Width="230" Height="250" 
+                           Source="images/last-black-man-in-san-fran-poster.png"/>
             </WrapPanel>
         </StackPanel>
 
         <StackPanel Grid.Row="1" Grid.Column="1" >
             <WrapPanel>
-                <Label Content="Director" />
-                <Label Content="\{Director}" />
+                <Label Content="Season" FontFamily="Segoe UI Semibold" Width="100" Foreground="#ffffff"/>
+                <Label Content="\{Season}" Foreground="#ffffff" />
             </WrapPanel>
             <WrapPanel>
-                <Label Content="Production" />
-                <Label Content="\{Production}" />
+                <Label Content="Runtime" FontFamily="Segoe UI Semibold"  Width="100" Foreground="#ffffff" />
+                <Label Content="\{Runtime}" Foreground="#ffffff" />
+            </WrapPanel>
+            <WrapPanel>
+                <Label Content="Premiere Date" FontFamily="Segoe UI Semibold" Width="100" Foreground="#ffffff" />
+                <Label Content="\{Premiere Date}" Foreground="#ffffff" />
+            </WrapPanel>            
+            <WrapPanel>
+                <Label Content="Director" FontFamily="Segoe UI Semibold" Width="100" Foreground="#ffffff" />
+                <Label Content="\{Director}" Foreground="#ffffff" />
+            </WrapPanel>
+            <WrapPanel>
+                <Label Content="Production" FontFamily="Segoe UI Semibold" Width="100" Foreground="#ffffff" />
+                <Label Content="\{Production}" Foreground="#ffffff" />
             </WrapPanel>
 
             <WrapPanel>
-                <Label Content="Synopsis" />
-                <TextBox Name="Synopsis" Width="350" Height="200" />
+                <Label Content="Synopsis" FontFamily="Segoe UI Semibold" Width="100" Foreground="#ffffff" />
+                <!---Temporary Synposis for mock UI-->
+                <TextBox Name="movieDetailSynopsis" Width="390" Height="100" Margin="3 0 0 0" IsReadOnly="True" 
+                            Background="#151314" Foreground="#ffffff" TextWrapping="Wrap" BorderThickness="0"
+                                Text="Jimmie and his best friend Mont try to reclaim the house built by Jimmie's grandfather, launching them on a poignant odyssey that connects them to their past, even as it tests their friendship and sense of belonging in the place they call home."/>
             </WrapPanel>
         </StackPanel>
 
-        <StackPanel Grid.Row="3" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Center">
-            <Button Content="Close" Width="170" Height="50" Background="Tan" BorderThickness="0" />
+        <StackPanel Grid.Row="3" Grid.ColumnSpan="2" Margin="0 20 0 0" Orientation="Horizontal" HorizontalAlignment="Center">
+            <Button Content="Close" Width="120" Height="30" Background="Tan" 
+                        BorderThickness="0" Click="closeMovieDetai_Btn" />
         </StackPanel>
     </Grid>
 </Window>

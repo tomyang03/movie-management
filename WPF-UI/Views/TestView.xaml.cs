@@ -12,22 +12,16 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace WPF_UI
+namespace WPF_UI.Views
 {
     /// <summary>
-    /// Interaction logic for MovieDetail.xaml
+    /// Interaction logic for TestView.xaml
     /// </summary>
-    public partial class MovieDetail : Window
+    public partial class TestView : Window
     {
-        public MovieDetail()
+        public TestView()
         {
             InitializeComponent();
-            WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen;
-        }
-
-        private void closeMovieDetai_Btn(object sender, RoutedEventArgs e)
-        {
-            this.Close();
         }
     }
 }
