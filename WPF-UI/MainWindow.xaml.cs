@@ -23,11 +23,24 @@ namespace WPF_UI
         public MainWindow()
         {
             InitializeComponent();
+            WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen;
         }
 
-        private void loginButton_Click(object sender, RoutedEventArgs e)
+        private void loginBtn_Click(object sender, RoutedEventArgs e)
         {
+            MovieList objMovieList = new MovieList();
 
+            if (String.IsNullOrEmpty(loginUsername.Text) || String.IsNullOrEmpty(loginPassword.Text))
+            {
+                MessageBoxResult mesgBoxResult = System.Windows.MessageBox.Show
+                    ("Username or password missing. \nType in anything to test.", "Oops!",
+                        System.Windows.MessageBoxButton.OK);
+            }
+            else
+            { 
+                this.Visibility = Visibility.Hidden; // Hides login window
+                objMovieList.Show();           
+            }
         }
     }
 }

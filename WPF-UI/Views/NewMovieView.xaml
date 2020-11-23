@@ -1,0 +1,79 @@
+﻿<UserControl x:Class="WPF_UI.Views.NewMovieView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:WPF_UI.Views"
+             mc:Ignorable="d" FontSize="18" FontFamily="Segoe UI Light"
+             Background="White" Height="500" Width="800">
+    <Grid Margin="10">
+        <Grid.Resources>
+            <Style TargetType="Label">
+                <Setter Property="FontSize" Value="14" />
+                <Setter Property="Width" Value="100" />
+                <Setter Property="Margin" Value="5" />
+            </Style>
+            <Style TargetType="TextBox">
+                <Setter Property="FontSize" Value="14" />
+                <Setter Property="Width" Value="180" />
+                <Setter Property="Margin" Value="5" />
+            </Style>
+        </Grid.Resources>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height=".8*" />
+            <RowDefinition Height=".5*" />
+            <RowDefinition Height="3*" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.Row="0" Grid.ColumnSpan="2" FontFamily="Segoe UI Semibold" FontSize="24" TextAlignment="Center" VerticalAlignment="Center">Movie Management System</TextBlock>
+        <TextBlock Grid.Row="1" Grid.ColumnSpan="2" FontFamily="Segoe UI Semibold" TextAlignment="Center" VerticalAlignment="Center" Height="40" Margin="0,0.2,0,8.6">Add New Movie</TextBlock>
+
+        <StackPanel Grid.Row="2" Grid.Column="0" >
+            <WrapPanel>
+                <Label Content="Title" />
+                <TextBox Name="Title" />
+            </WrapPanel>
+            <WrapPanel>
+                <Label Content="Director" />
+                <TextBox Name="Director" />
+            </WrapPanel>
+            <WrapPanel>
+                <Label Content="Production" />
+                <TextBox Name="Production" />
+            </WrapPanel>
+            <WrapPanel>
+                <Label Content="Runtime" />
+                <TextBox Name="Runtime" />
+            </WrapPanel>
+            <WrapPanel>
+                <Label Content="Premiere Date" />
+                <TextBox Name="PremiereDate" />
+            </WrapPanel>
+            <WrapPanel>
+                <Label Content="Season" />
+                <TextBox Name="Season" />
+            </WrapPanel>
+        </StackPanel>
+
+        <StackPanel Grid.Row="2" Grid.Column="1" >
+            <WrapPanel>
+                <Label Content="Movie Poster" />
+                <Button Content="Add Image" />
+                <TextBox Name="MoviePoster" Background="Transparent" BorderThickness="0" />
+            </WrapPanel>
+            <WrapPanel>
+                <Label Content="Synopsis" />
+                <TextBox Name="Synopsis" Width="200" Height="100" />
+            </WrapPanel>
+        </StackPanel>
+
+        <StackPanel Grid.Row="3" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Center">
+            <Button Content="Add New Movie" Width="170" Height="40" Background="Tan" BorderThickness="0" />
+        </StackPanel>
+    </Grid>
+</UserControl>

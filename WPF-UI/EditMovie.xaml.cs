@@ -15,12 +15,12 @@ using System.Windows.Shapes;
 namespace WPF_UI
 {
     /// <summary>
-    /// Interaction logic for NewMovie.xaml
+    /// Interaction logic for EditMovie.xaml
     /// </summary>
-    public partial class NewMovie : Window
+    public partial class EditMovie : Window
     {
         public List<Season> movieSeason = new List<Season>();
-        public NewMovie()
+        public EditMovie()
         {
             InitializeComponent();
             WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen;
@@ -30,32 +30,41 @@ namespace WPF_UI
             movieSeason.Add(new Season { MovieSeason = "Spring" });
             movieSeason.Add(new Season { MovieSeason = "Summer" });
 
-            addMovieSeason.ItemsSource = movieSeason;
+            editMovieSeason.ItemsSource = movieSeason;
         }
-
-        private void addMovieBtn_Click(object sender, RoutedEventArgs e)
+        private void saveMovieBtn_Click(object sender, RoutedEventArgs e)
         {
-            if (String.IsNullOrEmpty(addMovieTitle.Text) || String.IsNullOrEmpty(addMovieDirector.Text) ||
-                String.IsNullOrEmpty(addMovieProduction.Text) || String.IsNullOrEmpty(addMovieRuntime.Text) ||
-                String.IsNullOrEmpty(addMoviePremiereDate.Text) || String.IsNullOrEmpty(addMovieSeason.Text) ||
-                String.IsNullOrEmpty(addMovieSynopsis.Text))
+            if (String.IsNullOrEmpty(editMovieTitle.Text) || String.IsNullOrEmpty(editMovieDirector.Text) ||
+                String.IsNullOrEmpty(editMovieProduction.Text) || String.IsNullOrEmpty(editMovieRuntime.Text) ||
+                String.IsNullOrEmpty(editMoviePremiereDate.Text) || String.IsNullOrEmpty(editMovieSeason.Text) ||
+                String.IsNullOrEmpty(editMovieSynopsis.Text))
             {
                 MessageBoxResult mesgBoxResult = System.Windows.MessageBox.Show
                     ("Some fields are missing. \nType in anything to test.", "Incomplete Form",
                         System.Windows.MessageBoxButton.OK);
             }
             else
-            {
+            { 
                 MessageBoxResult msgBoxResult = System.Windows.MessageBox.Show
-                    ("Add this movie to the database?", "Add Confirmation",
+                    ("Save movie details?", "Save Confirmation",
                         System.Windows.MessageBoxButton.YesNo);
 
                 if (msgBoxResult == MessageBoxResult.Yes)
-                    this.Close(); // Add new movie to db
+                    this.Close(); // Update movie in db            
             }
         }
 
-        private void cancelAddBtn_Click(object sender, RoutedEventArgs e)
+        private void deleteMovieBtn_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBoxResult msgBoxResult = System.Windows.MessageBox.Show
+                ("Are you sure you want to delete this movie?","Delete Confirmation", 
+                    System.Windows.MessageBoxButton.YesNo);
+
+            if (msgBoxResult == MessageBoxResult.Yes)
+                this.Close(); // Delete movie in db
+        }
+
+        private void cancelEditBtn_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
         }
