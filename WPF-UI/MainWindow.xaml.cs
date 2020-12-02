@@ -13,6 +13,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
+using ServiceLayer;
+
 namespace WPF_UI
 {
     /// <summary>
@@ -29,17 +31,30 @@ namespace WPF_UI
         private void loginBtn_Click(object sender, RoutedEventArgs e)
         {
             MovieList objMovieList = new MovieList();
+            Console.WriteLine("Username: {0}", loginUsername.Text);
+            Console.WriteLine("Password: {0}", loginPassword.Password);
 
-            if (String.IsNullOrEmpty(loginUsername.Text) || String.IsNullOrEmpty(loginPassword.Text))
+            if (String.IsNullOrEmpty(loginUsername.Text) || String.IsNullOrEmpty(loginPassword.Password))
             {
                 MessageBoxResult mesgBoxResult = System.Windows.MessageBox.Show
                     ("Username or password missing. \nType in anything to test.", "Oops!",
                         System.Windows.MessageBoxButton.OK);
             }
             else
-            { 
-                this.Visibility = Visibility.Hidden; // Hides login window
-                objMovieList.Show();           
+            {
+                if(CommonService.ValidUser(loginUsername.Text, loginPassword.Password))
+                {
+                    Console.WriteLine("Welcome {0}", loginUsername.Text);
+                    this.Visibility = Visibility.Hidden; // Hides login window
+                    objMovieList.Show();
+                }
+                else
+                {
+                    MessageBoxResult mesgBoxResult = System.Windows.MessageBox.Show
+                   ("Invalid Username or password. \n Please verify.", "Who are you?",
+                       System.Windows.MessageBoxButton.OK);
+                }
+                
             }
         }
     }

@@ -12,6 +12,9 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
+using ServiceLayer;
+using Dto;
+
 namespace WPF_UI
 {
     /// <summary>
@@ -20,6 +23,7 @@ namespace WPF_UI
     public partial class EditMovie : Window
     {
         public List<Season> movieSeason = new List<Season>();
+        private int idMovie;
         public EditMovie()
         {
             InitializeComponent();
@@ -56,12 +60,30 @@ namespace WPF_UI
 
         private void deleteMovieBtn_Click(object sender, RoutedEventArgs e)
         {
+            idMovie = 3;
             MessageBoxResult msgBoxResult = System.Windows.MessageBox.Show
                 ("Are you sure you want to delete this movie?","Delete Confirmation", 
                     System.Windows.MessageBoxButton.YesNo);
 
             if (msgBoxResult == MessageBoxResult.Yes)
-                this.Close(); // Delete movie in db
+            {
+                Console.WriteLine(" Proceed Delete id: {0} ", idMovie );
+                if (CommonService.DeleteMovie(idMovie))
+                {
+                    Console.WriteLine(" Successfully Deleted ");
+                }
+                else
+                {
+                    Console.WriteLine(" Failure on Deleting ");
+                }
+                this.Close(); // Deleted movie in db
+            }
+            else
+            {
+                Console.WriteLine(" Cancel Deleting ");
+                this.Close(); 
+            }
+                
         }
 
         private void cancelEditBtn_Click(object sender, RoutedEventArgs e)

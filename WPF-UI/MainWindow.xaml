@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:WPF_UI"
         mc:Ignorable="d" FontSize="14" FontFamily="Segoe UI Light" 
         Background="#151314" Foreground="#ffffff" Opacity="0.95"
-        Title="Admin Login" SizeToContent="Height" Width="800">
+        Title="User Login" SizeToContent="Height" Width="800">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="20" />
@@ -44,7 +44,7 @@
             FontFamily="Segoe UI Semibold"
             HorizontalAlignment="Center"
             Margin="240,50,0,30"
-            Text="Admin Login"
+            Text="User Login"
          />
         
         <TextBlock 
@@ -70,14 +70,23 @@
             Text="Password"
          />
 
-        <TextBox
+        <!--<PasswordBox
             Name="loginPassword" 
             Grid.Column="1" 
             Grid.Row="4"
             Margin="240,0,0,120"
             Width="160" 
+            BorderThickness="0 0 0 2" 
+            MaxLength="25" PasswordChar="*" 
+         />-->
+        <PasswordBox x:Name="loginPassword"
+         ToolTip="Password"
+         PasswordChar="*" Grid.Column="1" 
+            Grid.Row="4"
+            Margin="240,0,0,120"
+            Width="160" 
             BorderThickness="0 0 0 2"
-         />
+        />
 
         <Button 
             Name="loginButton"
