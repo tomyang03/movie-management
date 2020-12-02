@@ -12,6 +12,9 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
+using ServiceLayer;
+using Dto;
+
 namespace WPF_UI
 {
     /// <summary>
@@ -19,8 +22,12 @@ namespace WPF_UI
     /// </summary>
     public partial class MovieDetail : Window
     {
+        public MovieDto movie;
         public MovieDetail()
         {
+            movie = CommonService.ReadMovie(1); // replaces Session or Object passing
+            Console.WriteLine("movie: {0} ", movie.ToString());
+
             InitializeComponent();
             WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen;
         }
