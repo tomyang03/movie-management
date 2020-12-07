@@ -69,12 +69,25 @@
                     </ComboBox.ItemTemplate>
                 </ComboBox>
             </WrapPanel>
+
+            <WrapPanel>
+                <Label Content="Genre" Foreground="#ffffff" />
+                <ComboBox Name="addFilmGenre" Height="25" Width="180" Margin="5 0 0 0" SelectionChanged="editFilmGenre_SelectionChanged">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <!-- "MovieSeason" is the property path -->
+                            <TextBlock Text="{Binding Path=Label}" />
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
+            </WrapPanel>
+
         </StackPanel>
 
         <StackPanel Grid.Row="2" Grid.Column="1" >
             <WrapPanel>
                 <Label Content="Movie Poster" Foreground="#ffffff" />
-                <Button Content="Add Image" Margin="5 5 0 5" Padding="10 0" BorderThickness="0" />
+                <Button Content="Add Image" Margin="5 5 0 5" Padding="10 0" BorderThickness="0" Click="ChangeImageBtn_Click" />
                 <TextBox Name="editMovieMoviePoster" Background="Transparent" BorderThickness="0" />
             </WrapPanel>
             <WrapPanel>
