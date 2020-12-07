@@ -19,35 +19,39 @@
         </Grid.RowDefinitions>
 
         <TextBlock Grid.Row="0" Grid.ColumnSpan="2" FontFamily="Segoe UI Semibold" FontSize="24" 
-                    Margin="0 0 0 25" TextAlignment="Center" VerticalAlignment="Center">{Movie Title}</TextBlock>
+                    Margin="0 0 0 25" TextAlignment="Center" VerticalAlignment="Center" Text="{Binding UpdateSourceTrigger=PropertyChanged, Path= Title}" ></TextBlock>
 
         <StackPanel Grid.Row="1" Grid.Column="0" Margin="20 10 0 0">
             <WrapPanel>
                 <Image Name="moviePoster" Width="230" Height="250" 
-                           Source="images/last-black-man-in-san-fran-poster.png"/>
+                           Source="{Binding UpdateSourceTrigger=PropertyChanged, Path= ImagePath}"/>
             </WrapPanel>
         </StackPanel>
 
         <StackPanel Grid.Row="1" Grid.Column="1" >
             <WrapPanel>
                 <Label Content="Season" FontFamily="Segoe UI Semibold" Width="100" Foreground="#ffffff"/>
-                <Label Content="\{Season}" Foreground="#ffffff" />
+                <Label Content="{Binding UpdateSourceTrigger=PropertyChanged, Path= Season}" Foreground="#ffffff" />
             </WrapPanel>
             <WrapPanel>
                 <Label Content="Runtime" FontFamily="Segoe UI Semibold"  Width="100" Foreground="#ffffff" />
-                <Label Content="\{Runtime}" Foreground="#ffffff" />
+                <Label Content="{Binding UpdateSourceTrigger=PropertyChanged, Path= RuntimeMinutes}" Foreground="#ffffff" />
             </WrapPanel>
             <WrapPanel>
                 <Label Content="Premiere Date" FontFamily="Segoe UI Semibold" Width="100" Foreground="#ffffff" />
-                <Label Content="\{Premiere Date}" Foreground="#ffffff" />
-            </WrapPanel>            
+                <Label Content="{Binding UpdateSourceTrigger=PropertyChanged, Path= PremiereDate}" Foreground="#ffffff" />
+            </WrapPanel>
             <WrapPanel>
                 <Label Content="Director" FontFamily="Segoe UI Semibold" Width="100" Foreground="#ffffff" />
-                <Label Content="\{Director}" Foreground="#ffffff" />
+                <Label Content="{Binding UpdateSourceTrigger=PropertyChanged, Path= Director}" Foreground="#ffffff" />
             </WrapPanel>
             <WrapPanel>
                 <Label Content="Production" FontFamily="Segoe UI Semibold" Width="100" Foreground="#ffffff" />
-                <Label Content="\{Production}" Foreground="#ffffff" />
+                <Label Content="{Binding UpdateSourceTrigger=PropertyChanged, Path= Production}" Foreground="#ffffff" />
+            </WrapPanel>
+            <WrapPanel>
+                <Label Content="FilmGenre" FontFamily="Segoe UI Semibold" Width="100" Foreground="#ffffff" />
+                <Label Content="{Binding UpdateSourceTrigger=PropertyChanged, Path= FilmGenre}" Foreground="#ffffff" />
             </WrapPanel>
 
             <WrapPanel>
@@ -55,7 +59,7 @@
                 <!---Temporary Synposis for mock UI-->
                 <TextBox Name="movieDetailSynopsis" Width="390" Height="100" Margin="3 0 0 0" IsReadOnly="True" 
                             Background="#151314" Foreground="#ffffff" TextWrapping="Wrap" BorderThickness="0"
-                                Text="Jimmie and his best friend Mont try to reclaim the house built by Jimmie's grandfather, launching them on a poignant odyssey that connects them to their past, even as it tests their friendship and sense of belonging in the place they call home."/>
+                                Text= "{Binding UpdateSourceTrigger=PropertyChanged, Path= Synopsys}" />
             </WrapPanel>
         </StackPanel>
 

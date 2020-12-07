@@ -1,5 +1,9 @@
-﻿using System;
+﻿using Dto;
+using MySql.Data.MySqlClient;
+using ServiceLayer;
+using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,6 +15,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using WPF_UI.DataAccess;
 
 namespace WPF_UI
 {
@@ -18,28 +23,39 @@ namespace WPF_UI
     /// Interaction logic for MovieList.xaml
     /// </summary>
     public partial class MovieList : Window
-    {
+    {               
+        //private int SelectedMovieID;
+        private MovieDto SelectedMovie;
+        List<MovieDto> movies;
+
         public MovieList()
         {
             InitializeComponent();
             WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen;
-        }
+            movies = CommonService.findAll();           
+            movieListGrid.DataContext = movies;
+
+        }    
 
         private void newMovieBtn_Click(object sender, RoutedEventArgs e)
         {
-            NewMovie objNewMovie = new NewMovie();
+            NewMovie objNewMovie = new NewMovie(movies);
             objNewMovie.ShowDialog();
+            // Rebind movies to the list of movies from NewMovie.XAML after the new movie was added to the list
+            movieListGrid.DataContext =  objNewMovie.movieList;                   
         }
 
         private void editMovieBtn_Click(object sender, RoutedEventArgs e)
         {
-            EditMovie objEditMovie = new EditMovie();
+            EditMovie objEditMovie = new EditMovie(SelectedMovie);
             objEditMovie.ShowDialog();
+            // Rebind movies to the list of movies from NewMovie.XAML after the selectedMovie was updated
+            movieListGrid.DataContext = objEditMovie.movieList;
         }
 
         private void movieListRow_DoubleClick(object sender, MouseEventArgs e)
-        {
-            MovieDetail objMovieDetail = new MovieDetail();
+        {            
+            MovieDetail objMovieDetail = new MovieDetail(SelectedMovie.MovieId);
             objMovieDetail.ShowDialog(); // view selected movie details from db
         }
 
@@ -53,15 +69,10 @@ namespace WPF_UI
 
         private void movieListGrid_GotFocus(object sender, RoutedEventArgs e)
         {
-            /* Find a way to print selected movie title to console output (to test).
-             * Eventually need to find a way to view and edit the details of the 
-             * selected movie */
-
-            DataGridRow objSelectedMovie = movieListGrid.SelectedItem as DataGridRow;
-            //string movieTitle = objSelectedMovie.ToString();
-
+            var dg = sender as DataGrid;   
+            SelectedMovie  = (MovieDto) this.movieListGrid.CurrentItem;                  
             editMovieButton.IsEnabled = true;
-            //Console.WriteLine($"You clicked on the movie: {movieTitle}");
+            
         }
     }
 }

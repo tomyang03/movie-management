@@ -84,37 +84,21 @@
             <Button Content="Search" Height="25" Width="100" Padding="1" Background="Tan"/>
         </StackPanel>
 
-        <!-- *Need to ask: which is better for listing: ListBox or DataGrid -->
-        <!--<ListBox Grid.Row="2" FontSize="14" Margin="5">
-            <ListBox.ItemTemplate>
-                <DataTemplate>
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="*" />
-                        </Grid.ColumnDefinitions>
-                        <Label Grid.Column="0" />
-                        <Label Grid.Column="1" />
-                    </Grid>
-                </DataTemplate>
-            </ListBox.ItemTemplate>
-        </ListBox>-->
-
         <DataGrid Name="movieListGrid" Grid.Row="3" Margin="0 0 0 50" AutoGenerateColumns="False" 
                       IsReadOnly="True" LostFocus="movieListGrid_LostFocus" GotFocus="movieListGrid_GotFocus"
-                          ItemsSource="{Binding Mode=Default, XPath=/MockObjects/MockObject}" RowBackground="#fafafa"
-                              SelectedItem="{Binding Mode=TwoWay, XPath=/MockObjects/MockObject/Title}">
+                          ItemsSource="{Binding}" RowBackground="#fafafa">
             <DataGrid.ItemContainerStyle>
                 <Style TargetType="DataGridRow">
                     <EventSetter Event="MouseDoubleClick" Handler="movieListRow_DoubleClick"/>
                 </Style>
             </DataGrid.ItemContainerStyle>
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Title" Binding="{Binding XPath=@Title}" ></DataGridTextColumn>
-                <DataGridTextColumn Header="Runtime" Binding="{Binding XPath=@Runtime}" ></DataGridTextColumn>
-                <DataGridTextColumn Header="Director" Binding="{Binding XPath=@Director}" ></DataGridTextColumn>
-                <DataGridTextColumn Header="Season" Binding="{Binding XPath=@Season}" ></DataGridTextColumn>
-                <DataGridTextColumn Header="Detail" Binding="{Binding XPath=@Detail}" ></DataGridTextColumn>
+                <DataGridTextColumn Header="Title" Binding="{Binding Path=Title}" ></DataGridTextColumn>
+                <DataGridTextColumn Header="Runtime" Binding="{Binding Path=RuntimeMinutes}" ></DataGridTextColumn>
+                <DataGridTextColumn Header="Director" Binding="{Binding Path=Director}" ></DataGridTextColumn>
+                <DataGridTextColumn Header="Season" Binding="{Binding Path=Season}" ></DataGridTextColumn>
+                <DataGridTextColumn Header="Production" Binding="{Binding Path=Production}" ></DataGridTextColumn>
+                <DataGridTextColumn Header="PremierDate" Binding="{Binding Path=PremiereDate}" ></DataGridTextColumn>
             </DataGrid.Columns>
         </DataGrid>
 

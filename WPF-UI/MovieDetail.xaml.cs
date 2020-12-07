@@ -11,9 +11,10 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-
 using ServiceLayer;
 using Dto;
+using System.Data;
+using WPF_UI.DataAccess;
 
 namespace WPF_UI
 {
@@ -22,14 +23,14 @@ namespace WPF_UI
     /// </summary>
     public partial class MovieDetail : Window
     {
-        public MovieDto movie;
-        public MovieDetail()
-        {
-            movie = CommonService.ReadMovie(1); // replaces Session or Object passing
-            Console.WriteLine("movie: {0} ", movie.ToString());
-
+        public DataAccessLayer db;
+        public MovieDetail(int movieID)
+        {            
             InitializeComponent();
             WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen;
+            MovieDto theMovie = CommonService.ReadMovie(movieID);                          
+            this.DataContext = theMovie;
+
         }
 
         private void closeMovieDetai_Btn(object sender, RoutedEventArgs e)
