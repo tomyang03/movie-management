@@ -82,7 +82,7 @@ namespace WPF_UI.DataAccess
                 // Note usage of alias to distinguish between Season and Filmgenre Label, as the 2 columns
                 // have the same name "Label" 
                 string query = @"SELECT  Movie_ID, Title, Director, Production, RuntimeMinutes, PremiereDate,
-                ImagePath, Synopsis, season.Label as SeasonLabel, filmgenre.Label as FilmGenreLabel  
+                ImagePath, Synopsis, season.Label as SeasonLabel, filmgenre.Label as FilmGenreLabel, season.Season_ID, filmgenre.FilmGenre_ID
                 FROM movie INNER JOIN  season ON  movie.Season_ID = season.Season_ID 
                 INNER JOIN filmgenre ON  movie.FilmGenre_ID = filmgenre.FilmGenre_ID;";
 

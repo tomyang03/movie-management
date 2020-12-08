@@ -47,9 +47,10 @@ namespace WPF_UI
 
         private void editMovieBtn_Click(object sender, RoutedEventArgs e)
         {
-            EditMovie objEditMovie = new EditMovie(SelectedMovie);
+            EditMovie objEditMovie = new EditMovie(SelectedMovie, movies);
             objEditMovie.ShowDialog();
-            // Rebind movies to the list of movies from NewMovie.XAML after the selectedMovie was updated
+            // Rebind movies to the list of movies from EditMovie.XAML 
+            // after the selectedMovie was updated or a movie was deleted
             movieListGrid.DataContext = objEditMovie.movieList;
         }
 

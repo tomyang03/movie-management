@@ -31,7 +31,7 @@ namespace WPF_UI
         public List<MovieDto> movieList;
         public int SelectedGenre_Id;
 
-        public EditMovie(MovieDto SelectedMovie)
+        public EditMovie(MovieDto SelectedMovie ,List<MovieDto> movies)
         {
             InitializeComponent();
             WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen;
@@ -43,10 +43,24 @@ namespace WPF_UI
 
             //populate the film genres
             List<filmGenre> genreList = CommonService.findAllGenres();
-            addFilmGenre.ItemsSource = genreList;
+
+            // Bind DataContext to SelectedMovie, to autopopulate the comboBox field with the FilmGenre 
+            // of the Movie the user has selected
+            editFilmGenre.DataContext = SelectedMovie;
+            // Set Itemsource to the list of genre, to populate the comboBox with the FilmGenres from the DB
+            editFilmGenre.ItemsSource = genreList;
+            // Autopopulate the season with the Season from the SelectedMovie
+            editMovieSeason.DataContext = SelectedMovie;
+            editMovieSeason.ItemsSource = movieSeason;
+            // Autopopulate the Date with the SelectedMovie's PremiereDate
+            editMoviePremiereDate.DataContext = SelectedMovie;
+
             SelectedGenre_Id = 1;
 
-            editMovieSeason.ItemsSource = movieSeason;
+            // movieList: a reference to movies from the MovieList.xaml            
+            movieList = movies;
+
+            // Autopopulate remaining fields
             this.SelectedMovie = SelectedMovie;
             editMovieTitle.Text = SelectedMovie.Title;
             editMovieDirector.Text = SelectedMovie.Director;
@@ -82,7 +96,7 @@ namespace WPF_UI
                     catch (FormatException f)
                     {
                         MessageBoxResult mesgBoxResult = System.Windows.MessageBox.Show
-                    ("Runtime is not a valid integer. \nPlease enter an integer.", "Incomplete Form",
+                    (f.Message + "\nRuntime is not a valid integer. \nPlease enter an integer.", "Incomplete Form",
                         System.Windows.MessageBoxButton.OK);
                         return;
                     }
@@ -90,7 +104,7 @@ namespace WPF_UI
                     catch (OverflowException ov)
                     {
                         MessageBoxResult mesgBoxResult = System.Windows.MessageBox.Show
-                    ("RuntimeMinutes is too big or to small. \nPlease enter valid integer within the range of possbile values.", "Incomplete Form",
+                    (ov.Message + "\nRuntimeMinutes is too big or to small. \nPlease enter valid integer within the range of possbile values.", "Incomplete Form",
                         System.Windows.MessageBoxButton.OK);
                         return;
                     }
@@ -153,20 +167,14 @@ namespace WPF_UI
                 // strip out doubled slashes \\ to single slash/ and change orientation of slash
                 UriBuilder uri = new UriBuilder(selectedImagePath);
                 // convert uri back to string 
-                string sImagePath = Uri.UnescapeDataString(uri.Path);
-                // extract the portion from sImagePath which starts with images/
-                string pattern = @"images+/(.*)";
-                Regex rg = new Regex(pattern);
-                string regexMatch = rg.Match(sImagePath).Value;
-                // set the imagePath of the field variable as an relative path
-                imagePath = @"../../" + regexMatch;            
+                imagePath = Uri.UnescapeDataString(uri.Path);               
             }
         }
 
         private void editFilmGenre_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             var dg = sender as ComboBox;
-            var selectedGenre = (filmGenre)this.addFilmGenre.SelectedItem;
+            var selectedGenre = (filmGenre)this.editFilmGenre.SelectedItem;
             SelectedGenre_Id = selectedGenre.Filmgenre_Id;
         }
     }

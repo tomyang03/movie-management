@@ -5,7 +5,7 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{F0A9A7C4-A301-4430-BBBD-928A57FCEA32}</ProjectGuid>
-    <OutputType>Exe</OutputType>
+    <OutputType>WinExe</OutputType>
     <RootNamespace>WPF_UI</RootNamespace>
     <AssemblyName>WPF-UI</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
@@ -112,6 +112,7 @@
     <Compile Include="Season.cs" />
     <Compile Include="Service\AppUserService.cs" />
     <Compile Include="Service\IAppUserService.cs" />
+    <Compile Include="UtilityFunctions\SeasonAndGenreConverter.cs" />
     <Page Include="EditMovie.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
