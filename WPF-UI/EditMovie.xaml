@@ -7,6 +7,9 @@
         mc:Ignorable="d" FontFamily="Segoe UI Light"
         Background="#151314" Foreground="#ffffff" Opacity="0.95"
         Title="Edit Movie" SizeToContent="Height" Width="800" d:DesignHeight="479.448">
+    <Window.Resources>
+        <local:SeasonAndGenreConverter x:Key="SeasonAndGenreConverter" />
+    </Window.Resources>
     <Grid Margin="10">
         <Grid.Resources>
             <Style TargetType="Label">
@@ -55,12 +58,13 @@
             </WrapPanel>
             <WrapPanel>
                 <Label Content="Premiere Date" Foreground="#ffffff" />
-                <DatePicker Name="editMoviePremiereDate" Background="White"
+                <DatePicker Name="editMoviePremiereDate" Background="White" 
+                            SelectedDate= "{Binding Mode=OneWay, Path=PremiereDate}"
                                 Height="25" Width="179" Margin="5 0 0 0" BorderThickness="0"/>
             </WrapPanel>
             <WrapPanel>
                 <Label Content="Season" Foreground="#ffffff" />
-                <ComboBox Name="editMovieSeason" Height="25" Width="180" Margin="5 0 0 0">
+                <ComboBox Name="editMovieSeason"  SelectedIndex= "{Binding Mode=OneWay, Path=SeasonId, Converter={StaticResource SeasonAndGenreConverter}}" Height="25" Width="180" Margin="5 0 0 0">
                     <ComboBox.ItemTemplate>
                         <DataTemplate>
                             <!-- MovieSeason is the property path -->
@@ -72,7 +76,7 @@
 
             <WrapPanel>
                 <Label Content="Genre" Foreground="#ffffff" />
-                <ComboBox Name="addFilmGenre" Height="25" Width="180" Margin="5 0 0 0" SelectionChanged="editFilmGenre_SelectionChanged">
+                <ComboBox Name="editFilmGenre" Height="25" Width="180" Margin="5 0 0 0" SelectedIndex= "{Binding Mode=OneWay, Path=FilmGenreId, Converter={StaticResource SeasonAndGenreConverter}}"  SelectionChanged="editFilmGenre_SelectionChanged">
                     <ComboBox.ItemTemplate>
                         <DataTemplate>
                             <!-- "MovieSeason" is the property path -->
