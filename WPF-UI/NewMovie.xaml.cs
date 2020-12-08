@@ -1,6 +1,6 @@
-﻿using Dto;
+﻿using WPF_UI.DTO;
 using Microsoft.Win32;
-using ServiceLayer;
+using WPF_UI.Service;
 using System;
 using System.Collections.Generic;
 using System.Linq;

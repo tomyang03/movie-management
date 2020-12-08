@@ -5,48 +5,19 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-using Dto;
+using WPF_UI.DTO;
 using WPF_UI;
 using WPF_UI.DataAccess;
 
-namespace ServiceLayer
+namespace WPF_UI.Service
 {
     class CommonService
-    {       
-        public static bool ValidUser(string username, string password)
-        {
-            Console.WriteLine("<ValidUser> username: {0}", username );
-            Console.WriteLine("<ValidUser> password: {0} ", password);
-            if (!String.IsNullOrEmpty(username) && !String.IsNullOrEmpty(password))
-            {
-                /* TEMPORARY code to simulate DB query */
-                //return true;
-                if(username == "Dennis" && password == "Nay")
-                {
-                    return true;
-                } else if(username == "Ernesto" && password == "Valle")
-                {
-                    return true;
-                } else if (username == "Kang" && password == "Yang")
-                {
-                    return true;
-                }
-                else if (username == "Youngyun" && password == "Namkung")
-                {
-                    return true;
-                }
-                else
-                {
-                    return false;
-                }
-                // */
-            }
-            else
-            {
-                /* Additional validation for null operation */
-                return false;
-            }
-        }
+    {
+        public const string dbHost = "localhost";
+        public const string dbUser = "root";
+        public const string dbPassw = "Breneli23";
+        public const string dbName = "moviedb";
+        
 
         /*  MOVIE SERVICES */
         public static MovieDto ReadMovie(int idMovie)
@@ -60,7 +31,7 @@ namespace ServiceLayer
         {
             Console.WriteLine("<SaveMovie> title: {0}", movieDto.Title);
             Console.WriteLine("<SaveMovie> year: {0}", movieDto.Year);
-            DataAccessLayer databaseConnection = new DataAccessLayer("localhost", "root", "", "moviedb");
+            DataAccessLayer databaseConnection = new DataAccessLayer(dbHost, dbUser, dbPassw, dbName);
             DataAccessLayer.AddMovie(databaseConnection.Connstring, databaseConnection.Conn, movieDto);
             List<MovieDto> movieList = findAll();
             return movieList;
@@ -71,7 +42,7 @@ namespace ServiceLayer
             Console.WriteLine("<updateMovie> title: {0}", movieDto.Title);
             Console.WriteLine("<updateMovie> year: {0}", movieDto.Year);
 
-            DataAccessLayer databaseConnection = new DataAccessLayer("localhost", "root", "", "moviedb");
+            DataAccessLayer databaseConnection = new DataAccessLayer(dbHost, dbUser, dbPassw, dbName);
             DataAccessLayer.UpdateMovie(databaseConnection.Connstring, databaseConnection.Conn, movieDto);
             List<MovieDto> movieList = findAll();
             return movieList;
@@ -88,7 +59,7 @@ namespace ServiceLayer
         {
             Console.WriteLine("<findAll>");
             List<MovieDto> movieList = new List<MovieDto>();
-            DataAccessLayer databaseConnection = new DataAccessLayer("localhost", "root", "", "moviedb");
+            DataAccessLayer databaseConnection = new DataAccessLayer(dbHost, dbUser, dbPassw, dbName);
             DataTable commandDatabase = DataAccessLayer.FetchMovies(databaseConnection.Connstring, databaseConnection.Conn);
 
             foreach (DataRow movieRow in commandDatabase.Rows)
@@ -113,7 +84,7 @@ namespace ServiceLayer
         {
             Console.WriteLine("<findAll>");
             List<filmGenre> genreList = new List<filmGenre>();
-            DataAccessLayer databaseConnection = new DataAccessLayer("localhost", "root", "", "moviedb");
+            DataAccessLayer databaseConnection = new DataAccessLayer(dbHost, dbUser, dbPassw, dbName);
             DataTable commandDatabase = DataAccessLayer.FetchAllGenres(databaseConnection.Connstring, databaseConnection.Conn);
 
             foreach (DataRow movieRow in commandDatabase.Rows)

@@ -105,10 +105,13 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="DataAccess\DataAccessLayer.cs" />
+    <Compile Include="DTO\AppUser.cs" />
     <Compile Include="filmGenre.cs" />
     <Compile Include="Service\CommonService.cs" />
     <Compile Include="DTO\MovieDto.cs" />
     <Compile Include="Season.cs" />
+    <Compile Include="Service\AppUserService.cs" />
+    <Compile Include="Service\IAppUserService.cs" />
     <Page Include="EditMovie.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
