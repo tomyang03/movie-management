@@ -103,7 +103,9 @@ namespace ServiceLayer
                 string premiereDate = movieRow["PremiereDate"].ToString();
                 string season = movieRow["SeasonLabel"].ToString();
                 string filmGenre = movieRow["FilmGenreLabel"].ToString();
-                MovieDto theMovie = new MovieDto(movieId, title, runtimeMinutes, director, production, synopsys, imagePath, premiereDate, season, filmGenre);
+                int seasonId = Convert.ToInt32(movieRow["Season_ID"]);
+                int  filmGenreId = Convert.ToInt32(movieRow["FilmGenre_ID"]);
+                MovieDto theMovie = new MovieDto(movieId, title, runtimeMinutes, director, production, synopsys, imagePath, premiereDate, season, filmGenre, seasonId, filmGenreId);
                 movieList.Add(theMovie);
             }
             return movieList;

@@ -85,14 +85,14 @@ namespace WPF_UI
                     catch (FormatException f)
                     {
                         MessageBoxResult mesgBoxResult = System.Windows.MessageBox.Show
-                    ("Runtime is not a valid integer. \nPlease enter an integer.", "Incomplete Form",
+                    (f.Message + "\nRuntime is not a valid integer. \nPlease enter an integer.", "Incomplete Form",
                         System.Windows.MessageBoxButton.OK);
                         return;
                     }
                     catch (OverflowException ov)
                     {
                         MessageBoxResult mesgBoxResult = System.Windows.MessageBox.Show
-                    ("RuntimeMinutes is too big or to small. \nPlease enter valid integer within the range of possible values.", "Incomplete Form",
+                    (ov.Message + "\nRuntimeMinutes is too big or to small. \nPlease enter valid integer within the range of possible values.", "Incomplete Form",
                         System.Windows.MessageBoxButton.OK);
                         return;
                     }
@@ -135,14 +135,7 @@ namespace WPF_UI
                 // strip out doubled slashes \\ to single slash/ and change orientation of slash
                 UriBuilder uri = new UriBuilder(selectedImagePath);
                 // convert uri back to string 
-                string sImagePath = Uri.UnescapeDataString(uri.Path);
-                // extract the portion from sImagePath which starts with images/
-                string pattern = @"images+/(.*)";
-                Regex rg = new Regex(pattern);
-                string regexMatch = rg.Match(sImagePath).Value;
-                // set the imagePath of the field variable as an relative path
-                imagePath = @"../../" + regexMatch;
-                Console.WriteLine(imagePath);
+                imagePath = Uri.UnescapeDataString(uri.Path);          
                 imageLoaded = true;               
             }
         }
