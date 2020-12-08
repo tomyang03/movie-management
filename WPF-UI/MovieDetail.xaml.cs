@@ -11,8 +11,8 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using ServiceLayer;
-using Dto;
+using WPF_UI.Service;
+using WPF_UI.DTO;
 using System.Data;
 using WPF_UI.DataAccess;
 
