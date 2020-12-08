@@ -12,8 +12,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-using ServiceLayer;
-using Dto;
+using WPF_UI.Service;
+using WPF_UI.DTO;
 using System.Data;
 using System.Text.RegularExpressions;
 using Microsoft.Win32;

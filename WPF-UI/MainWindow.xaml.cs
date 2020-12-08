@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-using ServiceLayer;
+using WPF_UI.Service;
 
 namespace WPF_UI
 {
@@ -22,6 +22,7 @@ namespace WPF_UI
     /// </summary>
     public partial class MainWindow : Window
     {
+        private IAppUserService appUserService;
         public MainWindow()
         {
             InitializeComponent();
@@ -30,7 +31,8 @@ namespace WPF_UI
 
         private void loginBtn_Click(object sender, RoutedEventArgs e)
         {
-            MovieList objMovieList = new MovieList();
+            appUserService = new AppUserService();
+            //MovieList objMovieList = new MovieList();
             Console.WriteLine("Username: {0}", loginUsername.Text);
             Console.WriteLine("Password: {0}", loginPassword.Password);
 
@@ -42,9 +44,10 @@ namespace WPF_UI
             }
             else
             {
-                if(CommonService.ValidUser(loginUsername.Text, loginPassword.Password))
+                if(appUserService.ValidUser(loginUsername.Text, loginPassword.Password))
                 {
                     Console.WriteLine("Welcome {0}", loginUsername.Text);
+                    MovieList objMovieList = new MovieList();
                     this.Visibility = Visibility.Hidden; // Hides login window
                     objMovieList.Show();
                 }
