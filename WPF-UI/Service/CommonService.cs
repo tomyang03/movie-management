@@ -70,11 +70,14 @@ namespace WPF_UI.Service
             return movieObservableCollection;
         }
 
-        public static bool DeleteMovie(int idMovie)
+        public static ObservableCollection<MovieDto> DeleteMovie(int selectedMovieId)
         {
-            Console.WriteLine("<DeleteMovie> movieId: {0}", idMovie);
+            Console.WriteLine("<DeleteMovie> movieId: {0}", selectedMovieId);
 
-            return true;
+            DataAccessLayer databaseConnection = new DataAccessLayer(dbHost, dbUser, dbPassw, dbName);
+            DataAccessLayer.DeleteMovie(databaseConnection.Connstring, databaseConnection.Conn, selectedMovieId);
+            ObservableCollection<MovieDto> movieObservableCollection = findAll();
+            return movieObservableCollection;
         }
 
         public static ObservableCollection<MovieDto> findAll()

@@ -146,30 +146,37 @@ namespace WPF_UI
 
         private void deleteMovieBtn_Click(object sender, RoutedEventArgs e)
         {
-            //idMovie = 3;
-            //MessageBoxResult msgBoxResult = System.Windows.MessageBox.Show
-            //    ("Are you sure you want to delete this movie?","Delete Confirmation", 
-            //        System.Windows.MessageBoxButton.YesNo);
+            MessageBoxResult msgBoxResult = System.Windows.MessageBox.Show
+                ("Are you sure you want to delete this movie?", "Delete Confirmation",
+                    System.Windows.MessageBoxButton.YesNo);
 
-            //if (msgBoxResult == MessageBoxResult.Yes)
-            //{
-            //    Console.WriteLine(" Proceed Delete id: {0} ", idMovie );
-            //    if (CommonService.DeleteMovie(idMovie))
-            //    {
-            //        Console.WriteLine(" Successfully Deleted ");
-            //    }
-            //    else
-            //    {
-            //        Console.WriteLine(" Failure on Deleting ");
-            //    }
-            //    this.Close(); // Deleted movie in db
-            //}
-            //else
-            //{
-            //    Console.WriteLine(" Cancel Deleting ");
-            //    this.Close(); 
-            //}
-                
+            if (msgBoxResult == MessageBoxResult.Yes)
+            {
+                // get selected movie id
+                MovieDto found = movieList.FirstOrDefault(movie => movie.MovieId == SelectedMovie.MovieId);
+                int selectedMovieId = SelectedMovie.MovieId;
+
+                found.Title = editMovieTitle.Text;
+                found.Director = editMovieDirector.Text;
+                found.Production = editMovieProduction.Text;  //System.Globalization.CultureInfo.InvariantCulture
+                found.PremiereDate = editMoviePremiereDate.SelectedDate.Value
+                    .ToString("yyyy-MM-dd HH:mm:ss tt", DateTimeFormatInfo.InvariantInfo);
+                found.Synopsys = editMovieSynopsis.Text;
+                found.Season = ((Season)editMovieSeason.SelectedItem).ToString();
+                found.SeasonId = editMovieSeason.SelectedIndex + 1;
+                found.ImagePath = imagePath;
+                found.FilmGenre = ((filmGenre)editFilmGenre.SelectedItem).ToString();
+                found.FilmGenreId = editFilmGenre.SelectedIndex + 1;
+
+                movieList.Remove(SelectedMovie);
+                movieList = CommonService.DeleteMovie(selectedMovieId);
+                this.Close(); // Deleted movie in db
+            }
+            else
+            {
+                Console.WriteLine(" Cancel Deletion ");
+                this.Close();
+            }
         }
 
         private void cancelEditBtn_Click(object sender, RoutedEventArgs e)
