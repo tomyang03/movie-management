@@ -1,4 +1,4 @@
-﻿using Dto;
+﻿using WPF_UI.DTO;
 using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
@@ -9,11 +9,11 @@ using System.Threading.Tasks;
 using System.Windows;
 
 namespace WPF_UI.DataAccess
-{
+{   
     public class DataAccessLayer
     {
         private string connstring ;
-        private MySqlConnection conn;
+        private MySqlConnection conn;        
 
         public string Connstring
         {
@@ -30,7 +30,46 @@ namespace WPF_UI.DataAccess
             connstring = $"server={host};userid={user};password={password};database={databse}";
             conn = null;
         }
- 
+
+        public static AppUser existUser(string connstring, MySqlConnection conn, AppUser user)
+        {
+            user.UserId = -1;
+            string query = @"SELECT  User_ID, Role_ID, FullName 
+                FROM appuser
+                WHERE Username = '"+ user.Username+"' AND PassWord = '"+user.Password+"'; ";
+            Console.WriteLine($"<existUser> query: {query}");            
+            try
+            {
+                conn = new MySqlConnection(connstring);
+
+                MySqlCommand commandDatabase = new MySqlCommand(query, conn);
+                commandDatabase.CommandTimeout = 60;
+                conn.Open(); 
+                MySqlDataReader reader = commandDatabase.ExecuteReader();
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        user.UserId = reader.GetInt32(0);
+                        user.RoleId = reader.GetInt32(1);
+                        user.Fullname = reader.GetString(2);
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("No Data found.");
+                }
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Exception: {0}", ex.Message); 
+                MessageBox.Show("Error: {0}", ex.Message);
+            }
+
+            return user;
+        }
+
         public static DataTable FetchMovies(string connstring, MySqlConnection conn)
         {
             DataTable dt = new DataTable();
@@ -54,7 +93,7 @@ namespace WPF_UI.DataAccess
             }
             catch (Exception e)
             {
-                MessageBox.Show("Error: {0}", e.ToString());
+                MessageBox.Show("Error: {0}", e.Message.ToString());
             }
             finally
             {
