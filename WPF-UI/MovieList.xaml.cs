@@ -35,7 +35,6 @@ namespace WPF_UI
             WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen;
             movies = CommonService.findAll();           
             movieListGrid.DataContext = movies;
-
         }    
 
         private void newMovieBtn_Click(object sender, RoutedEventArgs e)
@@ -75,6 +74,15 @@ namespace WPF_UI
             SelectedMovie  = (MovieDto) this.movieListGrid.CurrentItem;                  
             editMovieButton.IsEnabled = true;
             
+        }
+
+        private void SearchBtn_Click(object sender, RoutedEventArgs e)
+        {
+            ComboBoxItem selectedSearch = (ComboBoxItem)SelectedSearch.SelectedItem;
+            string searchInput = SearchInput.Text;
+            string searchCombo = selectedSearch.Name;
+            movies = CommonService.searchMovies(searchInput, searchCombo);
+            movieListGrid.DataContext = movies;
         }
     }
 }

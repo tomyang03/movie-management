@@ -121,5 +121,38 @@ namespace WPF_UI.Service
             }
             return genreObservableCollection;
         }
+
+        public static ObservableCollection<MovieDto> searchMovies(string searchInput, string searchCombo)
+        {
+            Console.WriteLine("<searchMovies>");
+            Console.WriteLine($"searchInput: {searchInput}, selected search column: {searchCombo}");
+
+            ObservableCollection<MovieDto> movieObservableCollection = new ObservableCollection<MovieDto>();
+            DataAccessLayer databaseConnection = new DataAccessLayer(dbHost, dbUser, dbPassw, dbName);
+            DataTable commandDatabase = DataAccessLayer.FetchMovies(databaseConnection.Connstring, databaseConnection.Conn);
+            
+            foreach (DataRow movieRow in commandDatabase.Rows)
+            {
+                string isSearchMovie = movieRow[searchCombo].ToString().ToLower();
+                if (isSearchMovie.Contains(searchInput.ToLower()))
+                {
+                    int movieId = Convert.ToInt32(movieRow["Movie_ID"]);
+                    string title = movieRow["Title"].ToString();
+                    int runtimeMinutes = Convert.ToInt32(movieRow["RuntimeMinutes"]);
+                    string director = movieRow["Director"].ToString();
+                    string production = movieRow["Production"].ToString();
+                    string synopsys = movieRow["Synopsis"].ToString();
+                    string imagePath = movieRow["ImagePath"].ToString();
+                    string premiereDate = ((DateTime?)movieRow["PremiereDate"]).Value.ToString("yyyy-MM-dd HH:mm:ss tt", DateTimeFormatInfo.InvariantInfo);
+                    string season = movieRow["SeasonLabel"].ToString();
+                    string filmGenre = movieRow["FilmGenreLabel"].ToString();
+                    int seasonId = Convert.ToInt32(movieRow["Season_ID"]);
+                    int filmGenreId = Convert.ToInt32(movieRow["FilmGenre_ID"]);
+                    MovieDto theMovie = new MovieDto(movieId, title, runtimeMinutes, director, production, synopsys, imagePath, premiereDate, season, filmGenre, seasonId, filmGenreId);
+                    movieObservableCollection.Add(theMovie);
+                }
+            }
+            return movieObservableCollection;
+        }
     }
 }

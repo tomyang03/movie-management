@@ -80,8 +80,14 @@
                             Double-click a movie to view its details.</TextBlock>
 
         <StackPanel Grid.Row="2" Orientation="Horizontal">
-            <TextBox Width="300" Height="25" HorizontalAlignment="Left" />
-            <Button Content="Search" Height="25" Width="100" Padding="1" Background="Tan"/>
+            <ComboBox Name="SelectedSearch" 
+                      Width="100" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0 0 10 0">
+                <ComboBoxItem IsSelected="True" Content="Title" Name="Title" />
+                <ComboBoxItem Content="Director" Name="Director" />
+                <ComboBoxItem Content="Production" Name="Production" />
+            </ComboBox>
+            <TextBox Name="SearchInput" Width="300" Height="25" HorizontalAlignment="Left" />
+            <Button Name="SearchBtn" Click="SearchBtn_Click" Content="Search" Height="25" Width="100" Padding="1" Background="Tan"/>
         </StackPanel>
 
         <DataGrid Name="movieListGrid" Grid.Row="3" Margin="0 0 0 50" AutoGenerateColumns="False" 
