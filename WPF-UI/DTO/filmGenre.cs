@@ -1,30 +1,60 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace WPF_UI.DTO
 {
-    public class filmGenre
+    public class filmGenre : INotifyPropertyChanged
     {
         private int filmgenre_Id;
-
-        private string label;
 
         public int Filmgenre_Id
         {
             get { return this.filmgenre_Id; }
-
-            set { this.filmgenre_Id = value; }
+            set
+            {
+                if (this.filmgenre_Id != value)
+                {
+                    this.filmgenre_Id = value;
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Filmgenre_Id"));
+                }
+            }
         }
+
+
+        private string label;
 
         public string Label
         {
             get { return this.label; }
-
-            set { this.label = value; }
+            set
+            {
+                if (this.label != value)
+                {
+                    this.label = value;
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Label"));
+                }
+            }
         }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        //public int Filmgenre_Id
+        //{
+        //    get { return this.filmgenre_Id; }
+
+        //    set { this.filmgenre_Id = value; }
+        //}
+
+        //public string Label
+        //{
+        //    get { return this.label; }
+
+        //    set { this.label = value; }
+        //}
         
         public filmGenre(int filmgenre_Id, string label)
         {
@@ -32,6 +62,10 @@ namespace WPF_UI.DTO
             this.label = label;
         }
 
+        public override string ToString()
+        {
+            return this.label;
+        }
 
     }
 }

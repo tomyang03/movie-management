@@ -15,6 +15,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.Collections.ObjectModel;
 
 namespace WPF_UI
 {
@@ -23,14 +24,14 @@ namespace WPF_UI
     /// </summary>
     public partial class NewMovie : Window
     {
-        public List<Season> movieSeason = new List<Season>();
-        public List<MovieDto> movieList;
+        public ObservableCollection<Season> movieSeason = new ObservableCollection<Season>();
+        public ObservableCollection<MovieDto> movieList;
         public string imagePath;
         public bool imageLoaded;
 
         public int SelectedGenre_Id;
 
-        public NewMovie(List<MovieDto> movies)
+        public NewMovie(ObservableCollection<MovieDto> movies)
         {
             InitializeComponent();
             WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen;
@@ -43,7 +44,7 @@ namespace WPF_UI
             addMovieSeason.ItemsSource = movieSeason;
 
             //populate the film genres
-            List<filmGenre> genreList = CommonService.findAllGenres();
+            ObservableCollection<filmGenre> genreList = CommonService.findAllGenres();
             addFilmGenre.ItemsSource = genreList;
             SelectedGenre_Id = 1;
 
@@ -103,10 +104,11 @@ namespace WPF_UI
                     string runtime = addMovieRuntime.Text;
                     int seasonId = addMovieSeason.SelectedIndex + 1;                    
                     string premiereDate = addMoviePremiereDate.SelectedDate.Value.ToString("yyyy-MM-dd", System.Globalization.CultureInfo.InvariantCulture);
-                    string synopsis = addMovieSynopsis.Text;
-                   
+                    string synopsis = addMovieSynopsis.Text;                   
                     MovieDto newMovie = new MovieDto(title, runtimeMinutes, director, production, synopsis, imagePath, premiereDate, seasonId, SelectedGenre_Id);
-                    movieList = CommonService.SaveMovie(newMovie);                    
+                
+                    MovieDto addedMovie = CommonService.SaveMovie(newMovie);
+                    movieList.Add(addedMovie);
                     this.Close(); // Add new movie to db
                 }
                     

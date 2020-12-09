@@ -8,6 +8,8 @@ using System.Threading.Tasks;
 using WPF_UI.DTO;
 using WPF_UI;
 using WPF_UI.DataAccess;
+using System.Collections.ObjectModel;
+using System.Globalization;
 
 namespace WPF_UI.Service
 {
@@ -15,7 +17,7 @@ namespace WPF_UI.Service
     {
         public const string dbHost = "localhost";
         public const string dbUser = "root";
-        public const string dbPassw = "Breneli23";
+        public const string dbPassw = "";
         public const string dbName = "moviedb";
         
 
@@ -23,20 +25,40 @@ namespace WPF_UI.Service
         public static MovieDto ReadMovie(int idMovie)
         {
             Console.WriteLine("<ReadMovie> id: " + idMovie);
-            List<MovieDto> movieList = findAll();
-            MovieDto theMovie = movieList.Find( movie => movie.MovieId == idMovie);
-            return theMovie;
+            Console.WriteLine("<findAll>");
+            ObservableCollection<MovieDto> movieObservableCollection = new ObservableCollection<MovieDto>();
+            DataAccessLayer databaseConnection = new DataAccessLayer(dbHost, dbUser, dbPassw, dbName);
+            DataTable commandDatabase = DataAccessLayer.FetchMovie(databaseConnection.Connstring, databaseConnection.Conn, idMovie);
+
+            foreach (DataRow movieRow in commandDatabase.Rows)
+            {
+                int movieId = Convert.ToInt32(movieRow["Movie_ID"]);
+                string title = movieRow["Title"].ToString();
+                int runtimeMinutes = Convert.ToInt32(movieRow["RuntimeMinutes"]);
+                string director = movieRow["Director"].ToString();
+                string production = movieRow["Production"].ToString();
+                string synopsys = movieRow["Synopsis"].ToString();
+                string imagePath = movieRow["ImagePath"].ToString();
+                string premiereDate = movieRow["PremiereDate"].ToString();
+                string season = movieRow["SeasonLabel"].ToString();
+                string filmGenre = movieRow["FilmGenreLabel"].ToString();
+                int seasonId = Convert.ToInt32(movieRow["Season_ID"]);
+                int filmGenreId = Convert.ToInt32(movieRow["FilmGenre_ID"]);
+                MovieDto theMovie = new MovieDto(movieId, title, runtimeMinutes, director, production, synopsys, imagePath, premiereDate, season, filmGenre, seasonId, filmGenreId);
+                movieObservableCollection.Add(theMovie);
+            }
+            return movieObservableCollection.ElementAt(0);
         }
-        public static List<MovieDto>  SaveMovie(MovieDto movieDto)
+        public static MovieDto  SaveMovie(MovieDto movieDto)
         {
             Console.WriteLine("<SaveMovie> title: {0}", movieDto.Title);
             Console.WriteLine("<SaveMovie> year: {0}", movieDto.Year);
             DataAccessLayer databaseConnection = new DataAccessLayer(dbHost, dbUser, dbPassw, dbName);
-            DataAccessLayer.AddMovie(databaseConnection.Connstring, databaseConnection.Conn, movieDto);
-            List<MovieDto> movieList = findAll();
-            return movieList;
+            int newmovieId = DataAccessLayer.AddMovie(databaseConnection.Connstring, databaseConnection.Conn, movieDto);
+            MovieDto movie = ReadMovie(newmovieId);
+            return movie;
         }
-        public static List<MovieDto> UpdateMovie(MovieDto movieDto)
+        public static ObservableCollection<MovieDto> UpdateMovie(MovieDto movieDto)
         {
             Console.WriteLine("<updateMovie> movieId: {0} ", movieDto.MovieId);
             Console.WriteLine("<updateMovie> title: {0}", movieDto.Title);
@@ -44,8 +66,8 @@ namespace WPF_UI.Service
 
             DataAccessLayer databaseConnection = new DataAccessLayer(dbHost, dbUser, dbPassw, dbName);
             DataAccessLayer.UpdateMovie(databaseConnection.Connstring, databaseConnection.Conn, movieDto);
-            List<MovieDto> movieList = findAll();
-            return movieList;
+            ObservableCollection<MovieDto> movieObservableCollection = findAll();
+            return movieObservableCollection;
         }
 
         public static bool DeleteMovie(int idMovie)
@@ -55,10 +77,10 @@ namespace WPF_UI.Service
             return true;
         }
 
-        public static List<MovieDto> findAll()
+        public static ObservableCollection<MovieDto> findAll()
         {
             Console.WriteLine("<findAll>");
-            List<MovieDto> movieList = new List<MovieDto>();
+            ObservableCollection<MovieDto> movieObservableCollection = new ObservableCollection<MovieDto>();
             DataAccessLayer databaseConnection = new DataAccessLayer(dbHost, dbUser, dbPassw, dbName);
             DataTable commandDatabase = DataAccessLayer.FetchMovies(databaseConnection.Connstring, databaseConnection.Conn);
 
@@ -71,21 +93,21 @@ namespace WPF_UI.Service
                 string production = movieRow["Production"].ToString();
                 string synopsys = movieRow["Synopsis"].ToString();
                 string imagePath = movieRow["ImagePath"].ToString();
-                string premiereDate = movieRow["PremiereDate"].ToString();
+                string premiereDate = ((DateTime?) movieRow["PremiereDate"]).Value.ToString("yyyy-MM-dd HH:mm:ss tt", DateTimeFormatInfo.InvariantInfo);              
                 string season = movieRow["SeasonLabel"].ToString();
                 string filmGenre = movieRow["FilmGenreLabel"].ToString();
                 int seasonId = Convert.ToInt32(movieRow["Season_ID"]);
                 int  filmGenreId = Convert.ToInt32(movieRow["FilmGenre_ID"]);
                 MovieDto theMovie = new MovieDto(movieId, title, runtimeMinutes, director, production, synopsys, imagePath, premiereDate, season, filmGenre, seasonId, filmGenreId);
-                movieList.Add(theMovie);
+                movieObservableCollection.Add(theMovie);
             }
-            return movieList;
+            return movieObservableCollection;
         }
 
-        public static List<filmGenre> findAllGenres()
+        public static ObservableCollection<filmGenre> findAllGenres()
         {
             Console.WriteLine("<findAll>");
-            List<filmGenre> genreList = new List<filmGenre>();
+            ObservableCollection<filmGenre> genreObservableCollection = new ObservableCollection<filmGenre>();
             DataAccessLayer databaseConnection = new DataAccessLayer(dbHost, dbUser, dbPassw, dbName);
             DataTable commandDatabase = DataAccessLayer.FetchAllGenres(databaseConnection.Connstring, databaseConnection.Conn);
 
@@ -95,9 +117,9 @@ namespace WPF_UI.Service
                 string label = movieRow["Label"].ToString();
                 
                 filmGenre genre = new filmGenre(filmgenreId, label);
-                genreList.Add(genre);
+                genreObservableCollection.Add(genre);
             }
-            return genreList;
+            return genreObservableCollection;
         }
     }
 }

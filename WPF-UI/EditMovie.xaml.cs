@@ -17,6 +17,8 @@ using WPF_UI.DTO;
 using System.Data;
 using System.Text.RegularExpressions;
 using Microsoft.Win32;
+using System.Collections.ObjectModel;
+using System.Globalization;
 
 namespace WPF_UI
 {
@@ -25,13 +27,13 @@ namespace WPF_UI
     /// </summary>
     public partial class EditMovie : Window
     {
-        public List<Season> movieSeason = new List<Season>();
+        public ObservableCollection<Season> movieSeason = new ObservableCollection<Season>();
         public MovieDto SelectedMovie;
         public string imagePath;
-        public List<MovieDto> movieList;
+        public ObservableCollection<MovieDto> movieList;
         public int SelectedGenre_Id;
 
-        public EditMovie(MovieDto SelectedMovie ,List<MovieDto> movies)
+        public EditMovie(MovieDto SelectedMovie ,ObservableCollection<MovieDto> movies)
         {
             InitializeComponent();
             WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen;
@@ -42,7 +44,7 @@ namespace WPF_UI
             movieSeason.Add(new Season { MovieSeason = "Summer" });
 
             //populate the film genres
-            List<filmGenre> genreList = CommonService.findAllGenres();
+            ObservableCollection<filmGenre> genreList = CommonService.findAllGenres();
 
             // Bind DataContext to SelectedMovie, to autopopulate the comboBox field with the FilmGenre 
             // of the Movie the user has selected
@@ -59,6 +61,8 @@ namespace WPF_UI
 
             // movieList: a reference to movies from the MovieList.xaml            
             movieList = movies;
+            // Set default imagePath if user does not choose to edit the image
+            imagePath = SelectedMovie.ImagePath;
 
             // Autopopulate remaining fields
             this.SelectedMovie = SelectedMovie;
@@ -109,6 +113,21 @@ namespace WPF_UI
                         return;
                     }
 
+                    // Retrieve an observable from the Observable collection
+                    MovieDto found = movieList.FirstOrDefault(movie => movie.MovieId == SelectedMovie.MovieId);
+                    // setter on observable will trigger INotifyPropertyChanged behind the scenes
+                    // INotify notifies the Obs collection about the changes and Observable Collection            
+                    found.Title = editMovieTitle.Text;
+                    found.Director = editMovieDirector.Text;
+                    found.Production = editMovieProduction.Text;  //System.Globalization.CultureInfo.InvariantCulture
+                    found.PremiereDate = editMoviePremiereDate.SelectedDate.Value.ToString("yyyy-MM-dd HH:mm:ss tt", DateTimeFormatInfo.InvariantInfo);
+                    found.Synopsys = editMovieSynopsis.Text;
+                    found.Season = ((Season)editMovieSeason.SelectedItem).ToString();
+                    found.SeasonId = editMovieSeason.SelectedIndex + 1;
+                    found.ImagePath = imagePath;
+                    found.FilmGenre = ((filmGenre)editFilmGenre.SelectedItem).ToString();
+                    found.FilmGenreId = editFilmGenre.SelectedIndex + 1;
+
                     int idMovie = SelectedMovie.MovieId;
                     string title = editMovieTitle.Text;
                     string director = editMovieDirector.Text;
@@ -118,7 +137,7 @@ namespace WPF_UI
                     string synopsys = editMovieSynopsis.Text;
                     
                     MovieDto newMovie = new MovieDto(idMovie, title, runtimeMinutes, director, production, synopsys, imagePath, premiereDate, seasonId, SelectedGenre_Id);
-                    movieList = CommonService.UpdateMovie(newMovie);
+                    movieList = CommonService.UpdateMovie(newMovie);                    
                     this.Close(); // Update movie in db  
                 }
                               

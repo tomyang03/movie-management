@@ -16,6 +16,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using WPF_UI.DataAccess;
+using System.Collections.ObjectModel;
 
 namespace WPF_UI
 {
@@ -26,7 +27,7 @@ namespace WPF_UI
     {               
         //private int SelectedMovieID;
         private MovieDto SelectedMovie;
-        List<MovieDto> movies;
+        ObservableCollection <MovieDto> movies;
 
         public MovieList()
         {
@@ -42,7 +43,7 @@ namespace WPF_UI
             NewMovie objNewMovie = new NewMovie(movies);
             objNewMovie.ShowDialog();
             // Rebind movies to the list of movies from NewMovie.XAML after the new movie was added to the list
-            movieListGrid.DataContext =  objNewMovie.movieList;                   
+            // movieListGrid.DataContext =  objNewMovie.movieList;                   
         }
 
         private void editMovieBtn_Click(object sender, RoutedEventArgs e)
@@ -51,7 +52,7 @@ namespace WPF_UI
             objEditMovie.ShowDialog();
             // Rebind movies to the list of movies from EditMovie.XAML 
             // after the selectedMovie was updated or a movie was deleted
-            movieListGrid.DataContext = objEditMovie.movieList;
+            // movieListGrid.DataContext = objEditMovie.movieList;
         }
 
         private void movieListRow_DoubleClick(object sender, MouseEventArgs e)
