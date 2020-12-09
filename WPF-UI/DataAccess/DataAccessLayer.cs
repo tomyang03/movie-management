@@ -105,8 +105,46 @@ namespace WPF_UI.DataAccess
             return dt;
         }
 
-        public static void AddMovie(string connstring, MySqlConnection conn, MovieDto theMovie)
-        {         
+        public static DataTable FetchMovie(string connstring, MySqlConnection conn, int movieId)
+        {
+            DataTable dt = new DataTable();
+
+            try
+            {
+                conn = new MySqlConnection(connstring);
+                conn.Open();
+
+                // Note usage of alias to distinguish between Season and Filmgenre Label, as the 2 columns
+                // have the same name "Label" 
+                string query = $@"SELECT  Movie_ID, Title, Director, Production, RuntimeMinutes, PremiereDate,
+                ImagePath, Synopsis, season.Label as SeasonLabel, filmgenre.Label as FilmGenreLabel, season.Season_ID, filmgenre.FilmGenre_ID
+                FROM movie INNER JOIN  season ON  movie.Season_ID = season.Season_ID 
+                INNER JOIN filmgenre ON  movie.FilmGenre_ID = filmgenre.FilmGenre_ID
+                WHERE Movie_ID={movieId};";
+
+                MySqlDataAdapter da = new MySqlDataAdapter(query, conn);
+                DataSet ds = new DataSet();
+                da.Fill(ds, "movie");
+                dt = ds.Tables["movie"];
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("Error: {0}", e.Message.ToString());
+            }
+            finally
+            {
+                if (conn != null)
+                {
+                    conn.Close();
+                }
+            }
+            return dt;
+        }
+
+
+        public static int AddMovie(string connstring, MySqlConnection conn, MovieDto theMovie)
+        {
+            int newmovieId = -1;
             try
             {
                 conn = new MySqlConnection(connstring);
@@ -127,7 +165,8 @@ namespace WPF_UI.DataAccess
                 string query = $@"INSERT INTO movie (title, runtimeminutes, director, production, 
                                synopsis, imagepath, premieredate, year, season_ID, filmgenre_id)
                                VALUES(@title,@runtimeMinutes,@director,@production,
-                               @synopsys,@imagePath,@premiereDate,@year,@season_ID,@filmgenre_id);";
+                               @synopsys,@imagePath,@premiereDate,@year,@season_ID,@filmgenre_id);
+                               SELECT LAST_INSERT_ID();";
 
                 MySqlCommand cmd = new MySqlCommand(query, conn);
                 cmd.Parameters.AddWithValue("@title", title);
@@ -139,8 +178,8 @@ namespace WPF_UI.DataAccess
                 cmd.Parameters.AddWithValue("@premiereDate", premiereDate);
                 cmd.Parameters.AddWithValue("@year", year);
                 cmd.Parameters.AddWithValue("@season_ID", season_ID);
-                cmd.Parameters.AddWithValue("@filmgenre_id", filmgenre_id);              
-                cmd.ExecuteNonQuery();           
+                cmd.Parameters.AddWithValue("@filmgenre_id", filmgenre_id);
+                newmovieId = Convert.ToInt32(cmd.ExecuteScalar());               
             }
             catch (Exception e)
             {
@@ -152,7 +191,8 @@ namespace WPF_UI.DataAccess
                 {
                     conn.Close();
                 }
-            }      
+            }
+            return newmovieId;
         }
 
 

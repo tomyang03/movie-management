@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Data;
 using System.Linq;
 using System.Text;
@@ -7,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace WPF_UI.DTO
 {
-    public class MovieDto
+    public class MovieDto : INotifyPropertyChanged
     {
         /* Attributes */
         private int movieId;
@@ -19,93 +20,228 @@ namespace WPF_UI.DTO
         private string imagePath;
         private string premiereDate;
         private int year;
+        private string season;
+        private string filmGenre;
         //Foreign
         private int seasonId;
         private int filmGenreId;
-        private string season;
-        private string filmGenre;
+       
+        // EventHandler for updating the Observable Collection
+        public event PropertyChangedEventHandler PropertyChanged;
 
-
-        /*   */
         public int MovieId
         {
             get { return this.movieId; }
-
-            set { this.movieId = value; }
+            set
+            {
+                if (this.movieId != value)
+                {
+                    this.movieId = value;
+                    // if PropertyChanged event fires
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("MovieId"));
+                }
+            }
         }
+
         public string Title
         {
             get { return this.title; }
 
-            set { this.title = value; }
+            set
+            {
+                if (this.title != value)
+                {
+                    this.title = value;
+                    // if PropertyChanged event fires
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Title"));
+                }
+            }
         }
-        public int RuntimeMinutes
-        {
-            get { return this.runtimeMinutes; }
 
-            set { this.runtimeMinutes = value; }
-        }
         public string Director
         {
             get { return this.director; }
 
-            set { this.director = value; }
+            set
+            {
+                if (this.director != value)
+                {
+                    this.director = value;
+                    // if PropertyChanged event fires
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Director"));
+                }
+            }
         }
+
+
         public string Production
         {
             get { return this.production; }
 
-            set { this.production = value; }
+            set
+            {
+                if (this.production != value)
+                {
+                    this.production = value;
+                    // if PropertyChanged event fires
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Production"));
+                }
+            }
         }
-        public string Synopsys
+       
+        public int RuntimeMinutes
         {
-            get { return this.synopsys; }
+            get { return this.runtimeMinutes; }
 
-            set { this.synopsys = value; }
+            set
+            {
+                if (this.runtimeMinutes != value)
+                {
+                    this.runtimeMinutes = value;
+                    // if PropertyChanged event fires
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("RuntimeMinutes"));
+                }
+            }
         }
-        public string ImagePath
-        {
-            get { return this.imagePath; }
-
-            set { this.imagePath = value; }
-        }
+      
         public string PremiereDate
         {
             get { return this.premiereDate; }
-
-            set { this.premiereDate = value; }
-        }
-        public int Year
-        {
-            get { return this.year; }
-
-            set { this.year = value; }
-        }
-        public int SeasonId
-        {
-            get { return this.seasonId; }
-
-            set { this.seasonId = value; }
-        }
-        public int FilmGenreId
-        {
-            get { return this.filmGenreId; }
-
-            set { this.filmGenreId = value; }
+            set
+            {
+                if (this.premiereDate != value)
+                {
+                    this.premiereDate = value;
+                    // if PropertyChanged event fires
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("PremiereDate"));
+                }
+            }
         }
 
         public string Season
         {
             get { return this.season; }
+            set
+            {
+                if (this.season != value)
+                {
+                    this.season = value;
+                    // if PropertyChanged event fires
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Season"));
+                }
+            }
+        }
 
-            set { this.season = value; }
+        public string ImagePath
+        {
+            get { return this.imagePath; }
+            set
+            {
+                if (this.imagePath != value)
+                {
+                    this.imagePath = value;
+                    // if PropertyChanged event fires
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("ImagePath"));
+                }
+            }
+        }
+        public string Synopsys
+        {
+            get { return this.synopsys; }
+
+            set
+            {
+                if (this.synopsys != value)
+                {
+                    this.synopsys = value;
+                    // if PropertyChanged event fires
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Synopsys"));
+                }
+            }
+        }
+     
+        public int  Year
+        {
+            get { return this.year; }
+
+            set
+            {
+                if (this.year != value)
+                {
+                    this.year = value;
+                    // if PropertyChanged event fires
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Year"));
+                }
+            }
+        }
+
+        //public int SeasonId
+        //{
+        //    get { return this.seasonId; }
+
+        //    set { this.seasonId = value; }
+        //}
+
+        public int SeasonId
+        {
+            get { return this.seasonId; }
+
+            set
+            {
+                if (this.seasonId != value)
+                {
+                    this.seasonId = value;
+                    // if PropertyChanged event fires
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("SeasonId"));
+                }
+            }
+        }
+
+
+
+        //public int FilmGenreId
+        //{
+        //    get { return this.filmGenreId; }
+
+        //    set { this.filmGenreId = value; }
+        //}
+
+    
+        //public string FilmGenre
+        //{
+        //    get { return this.filmGenre; }
+
+        //    set { this.filmGenre = value; }
+        //}
+
+        public int FilmGenreId
+        {
+            get { return this.filmGenreId; }
+
+            set
+            {
+                if (this.filmGenreId != value)
+                {
+                    this.filmGenreId = value;
+                    // if PropertyChanged event fires
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("FilmGenreId"));
+                }
+            }
         }
 
         public string FilmGenre
         {
             get { return this.filmGenre; }
 
-            set { this.filmGenre = value; }
+            set
+            {
+                if (this.filmGenre != value)
+                {
+                    this.filmGenre = value;
+                    // if PropertyChanged event fires
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("FilmGenre"));
+                }
+            }
         }
 
         public MovieDto()

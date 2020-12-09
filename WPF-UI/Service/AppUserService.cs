@@ -20,7 +20,7 @@ namespace WPF_UI.Service
         {
             this.dbHost = "localhost";
             this.dbUser = "root";
-            this.dbPassw = "Breneli23";
+            this.dbPassw = "";
             this.dbName = "moviedb";
         }
 

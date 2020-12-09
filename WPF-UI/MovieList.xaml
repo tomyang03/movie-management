@@ -86,7 +86,7 @@
 
         <DataGrid Name="movieListGrid" Grid.Row="3" Margin="0 0 0 50" AutoGenerateColumns="False" 
                       IsReadOnly="True" LostFocus="movieListGrid_LostFocus" GotFocus="movieListGrid_GotFocus"
-                          ItemsSource="{Binding}" RowBackground="#fafafa">
+                          ItemsSource="{Binding Mode=TwoWay, Path=.}" RowBackground="#fafafa">
             <DataGrid.ItemContainerStyle>
                 <Style TargetType="DataGridRow">
                     <EventSetter Event="MouseDoubleClick" Handler="movieListRow_DoubleClick"/>
