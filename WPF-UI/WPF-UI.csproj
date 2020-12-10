@@ -187,7 +187,44 @@
     <Resource Include="images\dog1.jpg" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="images\last-black-man-in-san-fran-poster.png" />
+    <Resource Include="images\lastblackman.jpg" />
+    <Resource Include="images\theparty.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\proudmary.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\annihilation.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\darkriver.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\wrinkleintime.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\neverreallyhere.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\gonegirl.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\thehandmaiden.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\rogueone.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\thefarewell.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\interstellar.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\revenant.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\moonlight.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

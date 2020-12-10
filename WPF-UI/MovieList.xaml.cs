@@ -84,5 +84,15 @@ namespace WPF_UI
             movies = CommonService.searchMovies(searchInput, searchCombo);
             movieListGrid.DataContext = movies;
         }
+
+        private void SearchInput_GotFocus(object sender, RoutedEventArgs e)
+        {
+            SearchBtn.IsDefault = true;
+        }
+
+        private void SearchInput_LostFocus(object sender, RoutedEventArgs e)
+        {
+            SearchBtn.IsDefault = false;
+        }
     }
 }

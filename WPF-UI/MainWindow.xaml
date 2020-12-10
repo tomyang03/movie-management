@@ -7,7 +7,7 @@
         mc:Ignorable="d" FontSize="14" FontFamily="Segoe UI Light" 
         Background="#151314" Foreground="#ffffff" Opacity="0.95"
         Title="User Login" SizeToContent="Height" Width="800">
-    <Grid>
+    <Grid FocusManager.FocusedElement="{Binding ElementName=loginUsername}">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="20" />
             <ColumnDefinition Width="auto" />
@@ -93,12 +93,14 @@
             Grid.Column="1"
             Grid.Row="4"
             Height="30"
-            BorderThickness="1"
+            BorderThickness="0"
             VerticalAlignment="Center"
             Margin="340,0,100,0"
             Content="Login" 
             Click="loginBtn_Click"
             Background="Tan"
+            BorderBrush="Tan"
+            IsDefault="True"
          />
     </Grid>
 </Window>
