@@ -108,7 +108,8 @@ namespace WPF_UI
                     MovieDto newMovie = new MovieDto(title, runtimeMinutes, director, production, synopsis, imagePath, premiereDate, seasonId, SelectedGenre_Id);
                 
                     MovieDto addedMovie = CommonService.SaveMovie(newMovie);
-                    movieList.Add(addedMovie);
+                    //movieList.Add(addedMovie);
+                    movieList.Insert(0, addedMovie); // add new movie to top
                     this.Close(); // Add new movie to db
                 }
                     
