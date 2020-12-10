@@ -195,7 +195,6 @@ namespace WPF_UI.DataAccess
             return newmovieId;
         }
 
-
         public static void UpdateMovie(string connstring, MySqlConnection conn, MovieDto theMovie)
         {
             try
@@ -233,6 +232,31 @@ namespace WPF_UI.DataAccess
                 cmd.Parameters.AddWithValue("@year", year);
                 cmd.Parameters.AddWithValue("@season_ID", season_ID);
                 cmd.Parameters.AddWithValue("@filmgenre_id", filmgenre_id);
+                cmd.ExecuteNonQuery();
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("Error: {0}", e.ToString());
+            }
+            finally
+            {
+                if (conn != null)
+                {
+                    conn.Close();
+                }
+            }
+        }
+
+        public static void DeleteMovie(string connstring, MySqlConnection conn, int selectedMovieId)
+        {
+            try
+            {
+                conn = new MySqlConnection(connstring);
+                conn.Open();
+
+                string query = "DELETE FROM movie WHERE Movie_ID='" + selectedMovieId + "'";
+
+                MySqlCommand cmd = new MySqlCommand(query, conn);
                 cmd.ExecuteNonQuery();
             }
             catch (Exception e)

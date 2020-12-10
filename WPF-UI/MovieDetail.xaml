@@ -23,7 +23,7 @@
 
         <StackPanel Grid.Row="1" Grid.Column="0" Margin="20 10 0 0">
             <WrapPanel>
-                <Image Name="moviePoster" Width="230" Height="250" 
+                <Image Name="moviePoster" Width="260" Height="270" 
                            Source="{Binding UpdateSourceTrigger=PropertyChanged, Path= ImagePath}"/>
             </WrapPanel>
         </StackPanel>
@@ -34,7 +34,7 @@
                 <Label Content="{Binding UpdateSourceTrigger=PropertyChanged, Path= Season}" Foreground="#ffffff" />
             </WrapPanel>
             <WrapPanel>
-                <Label Content="Runtime" FontFamily="Segoe UI Semibold"  Width="100" Foreground="#ffffff" />
+                <Label Content="Runtime (Mins)" FontFamily="Segoe UI Semibold"  Width="100" Foreground="#ffffff" />
                 <Label Content="{Binding UpdateSourceTrigger=PropertyChanged, Path= RuntimeMinutes}" Foreground="#ffffff" />
             </WrapPanel>
             <WrapPanel>

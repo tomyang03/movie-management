@@ -96,7 +96,7 @@
             </WrapPanel>
             <WrapPanel>
                 <Label Content="Synopsis" Foreground="#ffffff" />
-                <TextBox Name="editMovieSynopsis" Width="220" Height="120" TextWrapping="Wrap" 
+                <TextBox Name="editMovieSynopsis" Width="220" Height="220" TextWrapping="Wrap" 
                             VerticalScrollBarVisibility="Visible" AcceptsReturn="True"/>
             </WrapPanel>
         </StackPanel>
