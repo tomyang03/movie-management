@@ -90,7 +90,7 @@
             <WrapPanel>
                 <Label Content="Movie Poster" Foreground="#ffffff"/>
                 <Button Content="Add Image" Margin="5 5 0 5" Padding="10 0" BorderThickness="0" Click="AddImageButton_Click" />
-                <TextBox Name="addMoviePoster" Background="Transparent" BorderThickness="0"/>
+                <TextBox Name="addMoviePoster" Background="Transparent" BorderThickness="0" Foreground="#ffffff" />
             </WrapPanel>
             <WrapPanel>
                 <Label Content="Synopsis" Foreground="#ffffff" />

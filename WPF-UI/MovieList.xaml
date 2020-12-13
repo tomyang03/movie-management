@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:WPF_UI"
         mc:Ignorable="d" FontSize="14" FontFamily="Segoe UI Light"
         Background="#151314" Foreground="#ffffff" Opacity="0.95"
-        Title="Movie List" SizeToContent="Height" Width="800" d:DesignHeight="500">
+        Title="Movie List" SizeToContent="Height" Width="800" MinHeight="500" d:DesignHeight="500">
 
     <Window.Resources>
         <!-- Movie List Mock Data -->
@@ -93,7 +93,7 @@
             </ComboBox>
             <TextBox Name="SearchInput" Width="300" Height="25" HorizontalAlignment="Left" 
                      GotFocus="SearchInput_GotFocus" LostFocus="SearchInput_LostFocus"/>
-            <Button Name="SearchBtn" Click="SearchBtn_Click" Content="Search" Height="25" Width="100" Padding="1" Background="#f97462" Foreground="#fff" />
+            <Button Name="SearchBtn" Click="SearchBtn_Click" Content="Search" Height="25" Width="100" Padding="1" Background="#9e1611" Foreground="#fff" />
         </StackPanel>
 
         <ScrollViewer Grid.Row="3" Grid.Column="1" ScrollViewer.VerticalScrollBarVisibility="Auto">
@@ -117,9 +117,9 @@
         </ScrollViewer>
 
         <StackPanel Grid.Row="4" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Center">
-            <Button Content="Add New Movie" Height="30" Width="120" Padding="5" Background="#f97462" Foreground="#fff" Click="newMovieBtn_Click"/>
+            <Button Content="Add New Movie" Height="30" Width="120" Padding="5" Background="#9e1611" Foreground="#fff" Click="newMovieBtn_Click"/>
             <Button Name="editMovieButton" Content="Edit Movie" Height="30" Width="120" Padding="5" Click="editMovieBtn_Click"
-                        Background="#f97462" Foreground="#fff" IsEnabled="{Binding ElementName=movieListGrid, Path=SelectedItems.Count}"/>
+                        Background="#9e1611" Foreground="#fff" IsEnabled="{Binding ElementName=movieListGrid, Path=SelectedItems.Count}"/>
         </StackPanel>
     </Grid>
 </Window>
