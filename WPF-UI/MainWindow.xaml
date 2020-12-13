@@ -53,7 +53,7 @@
         <TextBlock 
             Grid.Column="2" 
             Grid.Row="3"
-            Margin="50,0,0,0"
+            Margin="70,0,0,0"
             Text="Username"
             VerticalAlignment="Center"
             Foreground="#322d37"
@@ -65,35 +65,26 @@
             Grid.Row="3"
             Width="160"
             Height="30"
-            Margin="20,0,0,0"
+            Margin="55,0,0,0"
             BorderThickness="0 0 0 2"
          />
 
         <TextBlock 
             Grid.Column="2" 
             Grid.Row="4"
-            Margin="50,0,0,0"
+            Margin="70,0,0,0"
             Text="Password"
             VerticalAlignment="Center"
             Foreground="#322d37"
          />
 
-        <!--<PasswordBox
-            Name="loginPassword" 
-            Grid.Column="1" 
-            Grid.Row="4"
-            Margin="240,0,0,120"
-            Width="160" 
-            BorderThickness="0 0 0 2" 
-            MaxLength="25" PasswordChar="*" 
-         />-->
         <PasswordBox 
             x:Name="loginPassword"
             ToolTip="Password"
             PasswordChar="*" 
             Grid.Column="2" 
             Grid.Row="4"
-            Margin="20,0,0,0"
+            Margin="55,0,0,0"
             Width="160" 
             Height="30"
             BorderThickness="0 0 0 2"
@@ -101,19 +92,19 @@
 
         <Button 
             Name="loginButton"
-            Grid.Column="1"
-            Grid.Row="4"
+            Grid.Column="2"
+            Grid.Row="5"
+            Width="160"
             Height="30"
             BorderThickness="0"
             VerticalAlignment="Center"
-            Margin="340,0,100,0"
+            Margin="0,0,0,30"
             Content="Login" 
             Click="loginBtn_Click"
-            Background="Tan"
-            BorderBrush="Tan"
+            Background="#7638b3"
+            BorderBrush="#7638b3"
+            Foreground="#ffffff"
             IsDefault="True"
          />
     </Grid>
 </Window>
-
-<!-- Comment -->
