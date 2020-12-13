@@ -9,11 +9,11 @@ using System.Threading.Tasks;
 using System.Windows;
 
 namespace WPF_UI.DataAccess
-{   
+{
     public class DataAccessLayer
     {
-        private string connstring ;
-        private MySqlConnection conn;        
+        private string connstring;
+        private MySqlConnection conn;
 
         public string Connstring
         {
@@ -25,7 +25,7 @@ namespace WPF_UI.DataAccess
             get { return this.conn; }
         }
 
-        public  DataAccessLayer(string host, string user, string password, string databse)
+        public DataAccessLayer(string host, string user, string password, string databse)
         {
             connstring = $"server={host};userid={user};password={password};database={databse}";
             conn = null;
@@ -34,17 +34,21 @@ namespace WPF_UI.DataAccess
         public static AppUser existUser(string connstring, MySqlConnection conn, AppUser user)
         {
             user.UserId = -1;
-            string query = @"SELECT  User_ID, Role_ID, FullName 
-                FROM appuser
-                WHERE Username = '"+ user.Username+"' AND PassWord = '"+user.Password+"'; ";
-            Console.WriteLine($"<existUser> query: {query}");            
+            string query =
+            /*@"SELECT  User_ID, Role_ID, FullName FROM appuser  HERE Username = '"+ user.Username+"' AND PassWord = '"+user.Password+"'; ";*/
+            "SELECT User_ID, Role_ID, FullName FROM appuser WHERE Username = @uname AND PassWord = @pwd";
+            /* Using Parameterized Queries with the SqlDataSource (C#), they handle all sanitization */
+            Console.WriteLine($"<existUser> query: {query}");
             try
             {
                 conn = new MySqlConnection(connstring);
 
                 MySqlCommand commandDatabase = new MySqlCommand(query, conn);
                 commandDatabase.CommandTimeout = 60;
-                conn.Open(); 
+                commandDatabase.Parameters.Add("@uname", MySqlDbType.VarChar, 20).Value = user.Username;
+                commandDatabase.Parameters.Add("@pwd", MySqlDbType.VarChar, 20).Value = user.Password;
+
+                conn.Open();
                 MySqlDataReader reader = commandDatabase.ExecuteReader();
                 if (reader.HasRows)
                 {
@@ -63,7 +67,7 @@ namespace WPF_UI.DataAccess
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Exception: {0}", ex.Message); 
+                Console.WriteLine("Exception: {0}", ex.Message);
                 MessageBox.Show("Error: {0}", ex.Message);
             }
 
@@ -78,7 +82,7 @@ namespace WPF_UI.DataAccess
             {
                 conn = new MySqlConnection(connstring);
                 conn.Open();
-               
+
                 // Note usage of alias to distinguish between Season and Filmgenre Label, as the 2 columns
                 // have the same name "Label" 
                 string query = @"SELECT  Movie_ID, Title, Director, Production, RuntimeMinutes, PremiereDate,
@@ -89,7 +93,7 @@ namespace WPF_UI.DataAccess
                 MySqlDataAdapter da = new MySqlDataAdapter(query, conn);
                 DataSet ds = new DataSet();
                 da.Fill(ds, "movie");
-                dt = ds.Tables["movie"];               
+                dt = ds.Tables["movie"];
             }
             catch (Exception e)
             {
@@ -100,7 +104,7 @@ namespace WPF_UI.DataAccess
                 if (conn != null)
                 {
                     conn.Close();
-                }              
+                }
             }
             return dt;
         }
@@ -179,7 +183,7 @@ namespace WPF_UI.DataAccess
                 cmd.Parameters.AddWithValue("@year", year);
                 cmd.Parameters.AddWithValue("@season_ID", season_ID);
                 cmd.Parameters.AddWithValue("@filmgenre_id", filmgenre_id);
-                newmovieId = Convert.ToInt32(cmd.ExecuteScalar());               
+                newmovieId = Convert.ToInt32(cmd.ExecuteScalar());
             }
             catch (Exception e)
             {
@@ -280,7 +284,7 @@ namespace WPF_UI.DataAccess
             {
                 conn = new MySqlConnection(connstring);
                 conn.Open();
-              
+
                 string query = @"SELECT  * FROM filmgenre;";
 
                 MySqlDataAdapter da = new MySqlDataAdapter(query, conn);

@@ -30,8 +30,6 @@ namespace WPF_UI.Service
             Console.WriteLine("<ValidUser> password: {0} ", password);
             if (!String.IsNullOrEmpty(username) && !String.IsNullOrEmpty(password))
             {
-                /* TEMPORARY code to simulate DB query */
-
                 databaseConnection = new DataAccessLayer(dbHost, dbUser, dbPassw, dbName);
                 AppUser user = new AppUser();
                 user.Username = username;
