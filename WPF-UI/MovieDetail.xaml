@@ -6,8 +6,11 @@
         xmlns:local="clr-namespace:WPF_UI"
         mc:Ignorable="d" FontFamily="Segoe UI Light"
         Background="#151314" Foreground="#ffffff" Opacity="0.95"
-        Title="Movie Detail" SizeToContent="Height" Width="800" d:DesignHeight="507.631">
-    <Grid Margin="10">
+        Title="Movie Detail" SizeToContent="Height" Width="800" MinHeight="500" d:DesignHeight="507.631">
+    <Grid>
+        <Grid.Background>
+            <ImageBrush ImageSource="images/mv-mngmnt-sys-1.png" Stretch="UniformToFill" />
+        </Grid.Background>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*" />
             <ColumnDefinition Width="1.5*" />
@@ -19,7 +22,7 @@
         </Grid.RowDefinitions>
 
         <TextBlock Grid.Row="0" Grid.ColumnSpan="2" FontFamily="Segoe UI Semibold" FontSize="24" 
-                    Margin="0 0 0 25" TextAlignment="Center" VerticalAlignment="Center" Text="{Binding UpdateSourceTrigger=PropertyChanged, Path= Title}" ></TextBlock>
+                    Margin="0 5 0 0" TextAlignment="Center" VerticalAlignment="Center" Text="{Binding UpdateSourceTrigger=PropertyChanged, Path= Title}" ></TextBlock>
 
         <StackPanel Grid.Row="1" Grid.Column="0" Margin="20 10 0 0">
             <WrapPanel>
@@ -57,13 +60,13 @@
             <WrapPanel>
                 <Label Content="Synopsis" FontFamily="Segoe UI Semibold" Width="100" Foreground="#ffffff" />
                 <!---Temporary Synposis for mock UI-->
-                <TextBox Name="movieDetailSynopsis" Width="390" Height="100" Margin="3 0 0 0" IsReadOnly="True" 
-                            Background="#151314" Foreground="#ffffff" TextWrapping="Wrap" BorderThickness="0"
+                <TextBox Name="movieDetailSynopsis" Width="390" Height="137" Margin="3 0 0 0" IsReadOnly="True" 
+                            Background="Transparent" Foreground="#ffffff" TextWrapping="Wrap" BorderThickness="0"
                                 Text= "{Binding UpdateSourceTrigger=PropertyChanged, Path= Synopsys}" />
             </WrapPanel>
         </StackPanel>
 
-        <StackPanel Grid.Row="3" Grid.ColumnSpan="2" Margin="0 20 0 0" Orientation="Horizontal" HorizontalAlignment="Center">
+        <StackPanel Grid.Row="3" Grid.ColumnSpan="2" Margin="0 10 0 0" Orientation="Horizontal" HorizontalAlignment="Center">
             <Button Content="Close" Width="120" Height="30" Background="Tan" 
                         BorderThickness="0" Click="closeMovieDetai_Btn" />
         </StackPanel>

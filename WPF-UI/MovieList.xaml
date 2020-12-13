@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:WPF_UI"
         mc:Ignorable="d" FontSize="14" FontFamily="Segoe UI Light"
         Background="#151314" Foreground="#ffffff" Opacity="0.95"
-        Title="Movie List" SizeToContent="Height" Width="800" d:DesignHeight="512.237">
+        Title="Movie List" SizeToContent="Height" Width="800" d:DesignHeight="500">
 
     <Window.Resources>
         <!-- Movie List Mock Data -->
@@ -53,7 +53,10 @@
         </XmlDataProvider>
     </Window.Resources>
     
-    <Grid Margin="10" DataContext="{Binding Source={StaticResource MockList}}">
+    <Grid DataContext="{Binding Source={StaticResource MockList}}">
+        <Grid.Background>
+            <ImageBrush ImageSource="images/mv-mngmnt-sys-3.png" Stretch="UniformToFill" />
+        </Grid.Background>
         <Grid.Resources>
             <Style TargetType="Button">
                 <Setter Property="Margin" Value="10" />
@@ -63,23 +66,25 @@
             </Style>
         </Grid.Resources>
         <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="10"/>
             <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="10"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="*" />
-            <RowDefinition Height="*" />
+            <RowDefinition Height="1.4*" />
+            <RowDefinition Height=".6*" />
             <RowDefinition Height="*" />
             <RowDefinition Height="3*" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
-        <TextBlock Grid.Row="0" Grid.ColumnSpan="2" FontFamily="Segoe UI Semibold" FontSize="24" 
+        <TextBlock Grid.Row="0" Grid.Column="1" FontFamily="Segoe UI Semibold" FontSize="26" Margin="0 20 0 0"
                        Foreground="#e84a5f" TextAlignment="Center" VerticalAlignment="Center">Movie Management System</TextBlock>
-        <TextBlock Grid.Row="1" Grid.ColumnSpan="2" FontFamily="Segoe UI" FontSize="16" 
-                       TextAlignment="Center" VerticalAlignment="Center" Margin="0 0 0 15">
+        <TextBlock Grid.Row="1" Grid.Column="1" FontFamily="Segoe UI" FontSize="16" 
+                       Foreground="#977b7f" TextAlignment="Center" VerticalAlignment="Center" Margin="0 0 0 0">
                             Double-click a movie to view its details.</TextBlock>
 
-        <StackPanel Grid.Row="2" Orientation="Horizontal">
+        <StackPanel Grid.Row="2" Grid.Column="1" Orientation="Horizontal">
             <ComboBox Name="SelectedSearch" 
                       Width="100" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0 0 10 0">
                 <ComboBoxItem IsSelected="True" Content="Title" Name="Title" />
@@ -88,10 +93,10 @@
             </ComboBox>
             <TextBox Name="SearchInput" Width="300" Height="25" HorizontalAlignment="Left" 
                      GotFocus="SearchInput_GotFocus" LostFocus="SearchInput_LostFocus"/>
-            <Button Name="SearchBtn" Click="SearchBtn_Click" Content="Search" Height="25" Width="100" Padding="1" Background="Tan"/>
+            <Button Name="SearchBtn" Click="SearchBtn_Click" Content="Search" Height="25" Width="100" Padding="1" Background="#f97462" Foreground="#fff" />
         </StackPanel>
 
-        <ScrollViewer Grid.Row="3" ScrollViewer.VerticalScrollBarVisibility="Auto">
+        <ScrollViewer Grid.Row="3" Grid.Column="1" ScrollViewer.VerticalScrollBarVisibility="Auto">
             <DataGrid Name="movieListGrid" Margin="0 0 0 50" AutoGenerateColumns="False" Height="200"
                       IsReadOnly="True" LostFocus="movieListGrid_LostFocus" GotFocus="movieListGrid_GotFocus"
                           ItemsSource="{Binding Mode=TwoWay, Path=.}" RowBackground="#fafafa">
@@ -111,10 +116,10 @@
             </DataGrid>
         </ScrollViewer>
 
-        <StackPanel Grid.Row="4" Orientation="Horizontal" HorizontalAlignment="Center">
-            <Button Content="Add New Movie" Height="30" Width="120" Padding="5" Background="tan" Click="newMovieBtn_Click"/>
+        <StackPanel Grid.Row="4" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Center">
+            <Button Content="Add New Movie" Height="30" Width="120" Padding="5" Background="#f97462" Foreground="#fff" Click="newMovieBtn_Click"/>
             <Button Name="editMovieButton" Content="Edit Movie" Height="30" Width="120" Padding="5" Click="editMovieBtn_Click"
-                        Background="tan" IsEnabled="{Binding ElementName=movieListGrid, Path=SelectedItems.Count}"/>
+                        Background="#f97462" Foreground="#fff" IsEnabled="{Binding ElementName=movieListGrid, Path=SelectedItems.Count}"/>
         </StackPanel>
     </Grid>
 </Window>

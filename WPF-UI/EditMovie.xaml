@@ -6,11 +6,14 @@
         xmlns:local="clr-namespace:WPF_UI"
         mc:Ignorable="d" FontFamily="Segoe UI Light"
         Background="#151314" Foreground="#ffffff" Opacity="0.95"
-        Title="Edit Movie" SizeToContent="Height" Width="800" d:DesignHeight="479.448">
+        Title="Edit Movie" SizeToContent="Height" Width="800" MinHeight="500" d:DesignHeight="479.448">
     <Window.Resources>
         <local:SeasonAndGenreConverter x:Key="SeasonAndGenreConverter" />
     </Window.Resources>
-    <Grid Margin="10">
+    <Grid>
+        <Grid.Background>
+            <ImageBrush ImageSource="images/mv-mngmnt-sys-1.png" Stretch="UniformToFill" />
+        </Grid.Background>
         <Grid.Resources>
             <Style TargetType="Label">
                 <Setter Property="FontSize" Value="14" />
@@ -31,15 +34,15 @@
             <RowDefinition Height=".8*" />
             <RowDefinition Height=".5*" />
             <RowDefinition Height="3*" />
-            <RowDefinition Height="*" />
+            <RowDefinition Height=".6*" />
         </Grid.RowDefinitions>
 
         <TextBlock Grid.Row="0" Grid.ColumnSpan="2" FontFamily="Segoe UI Semibold" FontSize="24" 
                        Foreground="#e84a5f" TextAlignment="Center" VerticalAlignment="Center">Movie Management System</TextBlock>
         <TextBlock Grid.Row="1" Grid.ColumnSpan="2" FontFamily="Segoe UI" FontSize="16" 
-                       TextAlignment="Center" VerticalAlignment="Center" Margin="0 0 0 25">Edit Movie Detail</TextBlock>
+                       TextAlignment="Center" VerticalAlignment="Top">Edit Movie Detail</TextBlock>
 
-        <StackPanel Grid.Row="2" Grid.Column="0">
+        <StackPanel Grid.Row="2" Grid.Column="0" Margin="30 0 0 0">
             <WrapPanel>
                 <Label Content="Title" Foreground="#ffffff" />
                 <TextBox Name="editMovieTitle" Height="25"/>
@@ -88,7 +91,7 @@
 
         </StackPanel>
 
-        <StackPanel Grid.Row="2" Grid.Column="1" >
+        <StackPanel Grid.Row="2" Grid.Column="1" Margin="0 0 0 0">
             <WrapPanel>
                 <Label Content="Movie Poster" Foreground="#ffffff" />
                 <Button Content="Add Image" Margin="5 5 0 5" Padding="10 0" BorderThickness="0" Click="ChangeImageBtn_Click" />
@@ -96,15 +99,17 @@
             </WrapPanel>
             <WrapPanel>
                 <Label Content="Synopsis" Foreground="#ffffff" />
-                <TextBox Name="editMovieSynopsis" Width="220" Height="220" TextWrapping="Wrap" 
-                            VerticalScrollBarVisibility="Visible" AcceptsReturn="True"/>
+            </WrapPanel>
+            <WrapPanel>
+                <TextBox Name="editMovieSynopsis" Width="330" Height="187" TextWrapping="Wrap" Margin="11 0 0 0"
+                    VerticalScrollBarVisibility="Visible" AcceptsReturn="True"/>
             </WrapPanel>
         </StackPanel>
 
-        <StackPanel Grid.Row="3" Grid.ColumnSpan="2" Margin="0 50 0 0" 
+        <StackPanel Grid.Row="3" Grid.ColumnSpan="2"
                         Orientation="Horizontal" HorizontalAlignment="Center">
             <Button Content="Save" Width="120" Height="30" Background="Tan" 
-                        BorderThickness="0" Click="saveMovieBtn_Click" Margin="0,1,0,0" VerticalAlignment="Top" />
+                        BorderThickness="0" Click="saveMovieBtn_Click" Margin="0,0,0,0" />
             <Button Content="Delete Movie" Width="120" Height="30" Margin="20 0 20 0" Background="Tan" 
                         BorderThickness="0" Click="deleteMovieBtn_Click" />
             <Button Content="Cancel" Width="120" Height="30" Background="Tan" 
