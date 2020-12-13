@@ -139,7 +139,8 @@ namespace WPF_UI
                 UriBuilder uri = new UriBuilder(selectedImagePath);
                 // convert uri back to string 
                 imagePath = Uri.UnescapeDataString(uri.Path);          
-                imageLoaded = true;               
+                imageLoaded = true;
+                addMoviePoster.Text = openFileDialog.SafeFileName;
             }
         }
 

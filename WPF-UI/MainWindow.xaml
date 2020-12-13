@@ -6,68 +6,76 @@
         xmlns:local="clr-namespace:WPF_UI"
         mc:Ignorable="d" FontSize="14" FontFamily="Segoe UI Light" 
         Background="#151314" Foreground="#ffffff" Opacity="0.95"
-        Title="User Login" SizeToContent="Height" Width="800">
+        Title="User Login" SizeToContent="Height" Width="800" MinHeight="400">
     <Grid FocusManager.FocusedElement="{Binding ElementName=loginUsername}">
+        <Grid.Background>
+            <ImageBrush ImageSource="images/mv-mngmnt-sys-2.png" Stretch="UniformToFill" />
+        </Grid.Background>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="20" />
-            <ColumnDefinition Width="auto" />
-            <ColumnDefinition Width="auto" />
-            <ColumnDefinition Width="auto" />
+            <ColumnDefinition Width="*" />
             <ColumnDefinition Width="*" />
             <ColumnDefinition Width="20" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="20" />
-            <RowDefinition Height="auto" />
-            <RowDefinition Height="auto" />
-            <RowDefinition Height="auto" />
-            <RowDefinition Height="auto" />
-            <RowDefinition Height="auto" />
+            <RowDefinition Height="1.5*" />
             <RowDefinition Height="*" />
+            <RowDefinition Height=".7*" />
+            <RowDefinition Height=".7*" />
+            <RowDefinition Height="2*" />
             <RowDefinition Height="20" />
         </Grid.RowDefinitions>
 
         <TextBlock
-            Grid.Column="1" 
+            Grid.Column="2" 
             Grid.Row="1"
             HorizontalAlignment="Center"
-            Margin="220,20,0,0"
-            FontFamily="Segoe UI Semibold"
-            FontSize="24"
+            VerticalAlignment="Center"
+            Margin="0, 20, 0 0"
+            FontFamily="Segoe UI bold"
+            FontSize="26"
             Text="Movie Management System"
-            Foreground="#e84a5f"
+            Foreground="#7638b3"
          />
 
         <TextBlock 
-            Grid.Column="1" 
+            Grid.Column="2" 
             Grid.Row="2"
-            FontFamily="Segoe UI Semibold"
+            FontFamily="Segoe UI light"
+            FontSize="17"
             HorizontalAlignment="Center"
-            Margin="240,50,0,30"
+            VerticalAlignment="Center"
             Text="User Login"
+            Foreground="#686071"
          />
         
         <TextBlock 
-            Grid.Column="1" 
+            Grid.Column="2" 
             Grid.Row="3"
-            Margin="210,0,0,0"
+            Margin="50,0,0,0"
             Text="Username"
+            VerticalAlignment="Center"
+            Foreground="#322d37"
          />
 
         <TextBox
             Name="loginUsername" 
-            Grid.Column="1" 
+            Grid.Column="2" 
             Grid.Row="3"
             Width="160"
-            Margin="240,0,0,5"
+            Height="30"
+            Margin="20,0,0,0"
             BorderThickness="0 0 0 2"
          />
 
         <TextBlock 
-            Grid.Column="1" 
+            Grid.Column="2" 
             Grid.Row="4"
-            Margin="210,0,0,0"
+            Margin="50,0,0,0"
             Text="Password"
+            VerticalAlignment="Center"
+            Foreground="#322d37"
          />
 
         <!--<PasswordBox
@@ -79,12 +87,15 @@
             BorderThickness="0 0 0 2" 
             MaxLength="25" PasswordChar="*" 
          />-->
-        <PasswordBox x:Name="loginPassword"
-         ToolTip="Password"
-         PasswordChar="*" Grid.Column="1" 
+        <PasswordBox 
+            x:Name="loginPassword"
+            ToolTip="Password"
+            PasswordChar="*" 
+            Grid.Column="2" 
             Grid.Row="4"
-            Margin="240,0,0,120"
+            Margin="20,0,0,0"
             Width="160" 
+            Height="30"
             BorderThickness="0 0 0 2"
         />
 

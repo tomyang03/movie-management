@@ -193,7 +193,8 @@ namespace WPF_UI
                 // strip out doubled slashes \\ to single slash/ and change orientation of slash
                 UriBuilder uri = new UriBuilder(selectedImagePath);
                 // convert uri back to string 
-                imagePath = Uri.UnescapeDataString(uri.Path);               
+                imagePath = Uri.UnescapeDataString(uri.Path);
+                editMovieMoviePoster.Text = openFileDialog.SafeFileName;
             }
         }
 
