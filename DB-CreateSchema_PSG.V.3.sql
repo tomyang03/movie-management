@@ -38,7 +38,7 @@ CREATE TABLE AppUser (
 
 CREATE TABLE Movie (
   Movie_ID SERIAL PRIMARY KEY,
-  Title varchar(30),
+  Title varchar(50),
   RuntimeMinutes int,
   Director varchar(30),
   Production varchar(30),

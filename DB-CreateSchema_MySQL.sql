@@ -41,7 +41,7 @@ CREATE TABLE `AppUser` (
 
 CREATE TABLE `Movie` (
   `Movie_ID` int NOT NULL AUTO_INCREMENT,
-  `Title` varchar(30),
+  `Title` varchar(50),
   `Season_ID` int,
   `RuntimeMinutes` int,
   `Director` varchar(30),
